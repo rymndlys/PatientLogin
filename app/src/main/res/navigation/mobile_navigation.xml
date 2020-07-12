@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_Home">
+
+    <fragment
+        android:id="@+id/navigation_Home"
+        android:name="com.example.patientlogin.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_Home_to_navigation_Queue"
+            app:destination="@id/navigation_Queue" />
+        <action
+            android:id="@+id/action_navigation_Home_to_navigation_Contact"
+            app:destination="@id/navigation_Contact" />
+        <action
+            android:id="@+id/action_navigation_Home_to_navigation_Scan"
+            app:destination="@id/navigation_Scan" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_Scan"
+        android:name="com.example.patientlogin.ui.dashboard.DashboardFragment"
+        android:label="@string/title_scan"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_Scan_to_navigation_Contact"
+            app:destination="@id/navigation_Contact" />
+        <action
+            android:id="@+id/action_navigation_Scan_to_navigation_Home"
+            app:destination="@id/navigation_Home" />
+        <action
+            android:id="@+id/action_navigation_Scan_to_navigation_Queue"
+            app:destination="@id/navigation_Queue" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_Queue"
+        android:name="com.example.patientlogin.ui.notifications.NotificationsFragment"
+        android:label="@string/title_queue"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_navigation_Queue_to_navigation_Contact"
+            app:destination="@id/navigation_Contact" />
+        <action
+            android:id="@+id/action_navigation_Queue_to_navigation_Home"
+            app:destination="@id/navigation_Home" />
+        <action
+            android:id="@+id/action_navigation_Queue_to_navigation_Scan"
+            app:destination="@id/navigation_Scan" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_Contact"
+        android:name="com.example.patientlogin.ui.notifications.NotificationsFragment"
+        android:label="@string/title_contact"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_navigation_Contact_to_navigation_Queue"
+            app:destination="@id/navigation_Queue" />
+        <action
+            android:id="@+id/action_navigation_Contact_to_navigation_Home"
+            app:destination="@id/navigation_Home" />
+        <action
+            android:id="@+id/action_navigation_Contact_to_navigation_Scan"
+            app:destination="@id/navigation_Scan" />
+    </fragment>
+</navigation>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">PatientLogin</string>
+    <string name="title_activity_patient_dashboard">PatientDashboard</string>
+    <string name="title_home">Home</string>
+    <string name="title_scan">Scan QR</string>
+    <string name="title_queue">Queue Tickets</string>
+    <string name="title_contact">Contact Us</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_user">UserActivity</string>
+    <string name="login_text">Login Page</string>
+    <string name="username_text">User Name</string>
+    <string name="password_text">Password</string>
+    <string name="attempt_text">Attempt</string>
+    <string name="button_login_text">Login</string>
+    <string name="screen_page_text">Welcome  to the second page</string>
+
+    //spinner
+
+    <string-array name="patienttypes">
+        <item>Regular</item>
+        <item>PWD</item>
+        <item>HMO</item>
+    </string-array>
+</resources>
