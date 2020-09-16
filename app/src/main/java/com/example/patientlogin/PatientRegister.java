@@ -151,8 +151,8 @@ public class PatientRegister extends AppCompatActivity {
                     if (con == null) {
                         z = "Please check your internet connection";
                     } else {
-                        String query=" insert into patient (email, password, patienttype_id, name, contactno) values('"+pEmail+"', '"+pPass+"', '"+pType+"'," +
-                                " '"+pName+"', '"+pContact+"')";
+                        String query=" insert into patient (email, password, patienttype_id, name, contactno, status) values('"+pEmail+"', '"+pPass+"', '"+pType+"'," +
+                                " '"+pName+"', '"+pContact+"', 'Active')";
 
                         Statement stmt = con.createStatement();
                         stmt.executeUpdate(query);

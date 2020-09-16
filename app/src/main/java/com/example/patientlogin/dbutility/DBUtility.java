@@ -4,9 +4,9 @@ public interface DBUtility {
 
     //connection class
     String jdbcDriverName = "com.mysql.jdbc.Driver";
-    String jdbcUrl = "jdbc:mysql://192.168.1.2/isproj2_sympl";
-    String dbUserName = "isproj2_sympl";
-    String dbPassword = "mJ9r)Gv^Q>[=>%W#";
+    String jdbcUrl = "jdbc:mysql://192.168.1.10/keruxdb";
+    String dbUserName = "KeruxAdmin";
+    String dbPassword = "admin";
 
     //login
     String LOGIN_PATIENT = "select patient_id, contactno, password, name from patient where contactno = ? and password = ?";
