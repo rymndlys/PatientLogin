@@ -41,6 +41,7 @@ public class PatientDashboard extends AppCompatActivity {
     private EditText editTextMessage;
 
     private Button smsButton;
+    private Button button_editProfile;
 
     ConnectionClass connectionClass;
 
@@ -74,9 +75,12 @@ public class PatientDashboard extends AppCompatActivity {
         });
 
         SMSButton();
+        EditProfile();
 
         connectionClass = new ConnectionClass();
         //--------------------------------------------------------------------------------------------------
+
+        button_editProfile = (Button)findViewById(R.id.button_editProfile);
 
         TextView title = (TextView) findViewById(R.id.dateToday);
         title.setText(giveDate());
@@ -139,7 +143,7 @@ public class PatientDashboard extends AppCompatActivity {
     //---------------------------------------------------------------
     public void SMSButton(){
 
-        smsButton = (Button)findViewById(R.id.buttomSMS);
+        //smsButton = (Button)findViewById(R.id.buttonSMS);
 
         smsButton.setOnClickListener(
                 new View.OnClickListener(){
@@ -149,6 +153,23 @@ public class PatientDashboard extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void EditProfile(){
+
+        button_editProfile.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        openEdit();
+                    }
+                }
+        );
+    }
+
+    public void openEdit(){
+        Intent intent = new Intent(this, PatientEditProfile.class);
+        startActivity(intent);
     }
 
 }
