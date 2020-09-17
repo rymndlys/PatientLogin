@@ -103,49 +103,51 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                     if (con == null) {
                         z = "Please check your internet connection";
                     } else {
-                        String query= LOGIN_PATIENT;
+                        try {
 
-                        PreparedStatement ps = con.prepareStatement(query);
-                        ps.setString(1, usernam);
-                        ps.setString(2, passstr);
 
-                        /*Statement stmt = con.createStatement();*/
-                        // stmt.executeUpdate(query);
-                        ResultSet rs= ps.executeQuery();
+                            String query = LOGIN_PATIENT;
 
-                        while (rs.next())
-                        {
-                            pID=rs.getString(1);
-                            cn= rs.getString(2);
-                            pass=rs.getString(3);
-                            pName = rs.getString(4);
+                            PreparedStatement ps = con.prepareStatement(query);
+                            ps.setString(1, usernam);
+                            ps.setString(2, passstr);
 
-                            ar.add(pName);
+                            /*Statement stmt = con.createStatement();*/
+                            // stmt.executeUpdate(query);
+                            ResultSet rs = ps.executeQuery();
 
-                            if(cn.equals(usernam)&&pass.equals(passstr))
-                            {
-                                session.setcontactno(cn);
-                                session.setpassword(pass);
-                                session.setusername(pName);
-                                session.setpatientid(pID);
-                                isSuccess=true;
-                                z = "Login successfull";
-                            }
-                            else
-                                isSuccess=false;
+                            while (rs.next()) {
+                                pID = rs.getString(1);
+                                cn = rs.getString(2);
+                                pass = rs.getString(3);
+                                pName = rs.getString(4);
+
+                                ar.add(pName);
+
+                                if (cn.equals(usernam) && pass.equals(passstr)) {
+                                    session.setcontactno(cn);
+                                    session.setpassword(pass);
+                                    session.setusername(pName);
+                                    session.setpatientid(pID);
+                                    isSuccess = true;
+                                    z = "Login successfull";
+                                } else
+                                    isSuccess = false;
 
                             /*attempt_counter--;
                             attempt.setText(Integer.toString(attempt_counter));
 
                             if(attempt_counter == 0)
                                 button_login.setEnabled(false);*/
+                            }
+
+
+                        } catch (Exception e) {
+
+                            Thread.dumpStack(); //always put this from sir mon
                         }
-
-
                     }
-
-                }
-                catch (Exception ex)
+                }catch (Exception ex)
                 {
                     isSuccess = false;
                     z = "Exceptions"+ex;

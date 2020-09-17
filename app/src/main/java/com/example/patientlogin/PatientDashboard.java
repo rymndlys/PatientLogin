@@ -74,8 +74,8 @@ public class PatientDashboard extends AppCompatActivity {
             }
         });
 
-        SMSButton();
-        EditProfile();
+        /*SMSButton();
+        EditProfile();*/
 
         connectionClass = new ConnectionClass();
         //--------------------------------------------------------------------------------------------------
@@ -145,17 +145,17 @@ public class PatientDashboard extends AppCompatActivity {
 
         //smsButton = (Button)findViewById(R.id.buttonSMS);
 
-        smsButton.setOnClickListener(
+        /*smsButton.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
                         openSMS();
                     }
                 }
-        );
+        );*/
     }
 
-    public void EditProfile(){
+   /* public void EditProfile(){
 
         button_editProfile.setOnClickListener(
                 new View.OnClickListener(){
@@ -165,7 +165,7 @@ public class PatientDashboard extends AppCompatActivity {
                     }
                 }
         );
-    }
+    }*/
 
     public void openEdit(){
         Intent intent = new Intent(this, PatientEditProfile.class);
