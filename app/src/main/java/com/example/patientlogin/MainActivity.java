@@ -6,6 +6,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*LoginButton();*/
+
         GuestButton();
         RegisterButton();
         ReportButton();
@@ -53,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         progressDialog = new ProgressDialog(this);
 
         username = (EditText)findViewById(R.id.editText_username);
+
+        username.setInputType(InputType.TYPE_CLASS_NUMBER);
+
         password = (EditText)findViewById(R.id.editText_password);
         attempt = (TextView) findViewById(R.id.attempt_count);
         button_login = (Button)findViewById(R.id.button_login);
@@ -95,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         @Override
         protected String doInBackground(String... params) {
             if(usernam.trim().equals("")||passstr.trim().equals(""))
-                z = "Please enter all fields....";
+                z = "Please enter all fields...."; //add validation if acct does not exist
             else
             {
                 try {
@@ -121,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                                 cn = rs.getString(2);
                                 pass = rs.getString(3);
                                 pName = rs.getString(4);
+
 
                                 ar.add(pName);
 
@@ -170,6 +177,9 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
 
 
     }
+    // for numbers only in contact input
+
+
 
 
     //---------------------------------------------------------------

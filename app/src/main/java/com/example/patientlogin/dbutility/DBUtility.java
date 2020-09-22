@@ -4,7 +4,7 @@ public interface DBUtility {
 
     //connection class
     String jdbcDriverName = "com.mysql.jdbc.Driver";
-    String jdbcUrl = "jdbc:mysql://192.168.1.10/keruxdb";
+    String jdbcUrl = "jdbc:mysql://192.168.1.16/keruxdb";
     String dbUserName = "KeruxAdmin";
     String dbPassword = "admin";
 
@@ -16,8 +16,8 @@ public interface DBUtility {
             "inner join department on department.department_id = queue.department_id " +
             "inner join doctor on doctor.doctor_id = queue.doctor_id " +
             "where department.name = ? and doctor.name = ? and queue.endtime is null";
-    String QUEUE_PATIENT = "insert into instance (patient_id, queue_id, queuetype, status, priority) " +
-            "values( ? , ? , ? , ?, ?)";
+    String QUEUE_PATIENT = "insert into instance (patient_id, queue_id, queuetype, status, priority, QueueNumber) " +
+            "values( ? , ? , ? , ?, ?, 1)";
 
 }
 

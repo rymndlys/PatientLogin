@@ -40,9 +40,9 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
 
-    private String urlAddressDoctors = "http://10.0.2.2:8090/kerux/doctorSpinner.php";
-    private String urlAddressDepartments = "http://10.0.2.2:8090/kerux/departmentSpinner.php";
-    private String urlAddressTransaction = "http://10.0.2.2:8090/kerux/transactionSpinner.php";
+    private String urlAddressDoctors = "http://192.168.1.16:80/kerux/doctorSpinner.php";
+    private String urlAddressDepartments = "http://192.168.1.16:80/kerux/departmentSpinner.php";
+    private String urlAddressTransaction = "http://192.168.1.16:80/kerux/doctorType.php";
 
     private Spinner spinnerDoc;
     private Spinner spinnerDept;
@@ -159,6 +159,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         protected String doInBackground(String... params) {
 
             if(getQueueType.equals("PWD&Senior")){
+
                 isPriority = "Yes";
             }else{
                 isPriority = "No";
@@ -192,7 +193,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                             PreparedStatement ps2 = con.prepareStatement(query2);
                             ps2.setString(1, session.getpatientid());
                             ps2.setString(2, qID);
-                            ps2.setString(3, sec.encrypt(getQueueType));
+                            ps2.setString(3, getQueueType);
                             ps2.setString(4, "InLine");
                             ps2.setString(5, isPriority);
 

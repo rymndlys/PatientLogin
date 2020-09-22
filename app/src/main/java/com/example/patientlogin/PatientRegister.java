@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -63,6 +64,9 @@ public class PatientRegister extends AppCompatActivity {
 
         button_login = (Button)findViewById(R.id.buttonLogin);
         button_report = (Button)findViewById(R.id.reportButton);
+
+        contact.setInputType(InputType.TYPE_CLASS_NUMBER);
+
 
         button_signUp.setOnClickListener(new View.OnClickListener() {//
             @Override

@@ -24,9 +24,10 @@
         android:layout_width="217dp"
         android:layout_height="41dp"
         android:background="@android:color/transparent"
+
         android:ems="10"
-        android:hint="username"
-        android:inputType="textPersonName"
+        android:hint="contact number"
+        android:inputType="number"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
