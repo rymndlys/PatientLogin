@@ -41,7 +41,7 @@ public class PatientDashboard extends AppCompatActivity {
     private EditText editTextMessage;
 
     private Button smsButton;
-    private Button button_editProfile;
+    private Button buttonEditProfile;
 
     ConnectionClass connectionClass;
 
@@ -74,13 +74,11 @@ public class PatientDashboard extends AppCompatActivity {
             }
         });
 
-        /*SMSButton();
-        EditProfile();*/
+
+        EditProfileButton();
 
         connectionClass = new ConnectionClass();
         //--------------------------------------------------------------------------------------------------
-
-        button_editProfile = (Button)findViewById(R.id.button_editProfile);
 
         TextView title = (TextView) findViewById(R.id.dateToday);
         title.setText(giveDate());
@@ -90,10 +88,6 @@ public class PatientDashboard extends AppCompatActivity {
         patientName.setText("Hello " +getIntent().getStringExtra("NAME"));
 
         notificationManager = NotificationManagerCompat.from(this);
-
-       /* editTextTitle = findViewById(R.id.edit_text_title);
-        editTextMessage = findViewById(R.id.edit_text_message);*/
-
 
 
     }
@@ -107,69 +101,24 @@ public class PatientDashboard extends AppCompatActivity {
     //--------------------------------------------------------------------------------------------------
 
 
-  /*  public void sendOnChannel1(View v) {
-        String title = editTextTitle.getText().toString();
-        String message = editTextMessage.getText().toString();
+    public void EditProfileButton(){
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .build();
+        buttonEditProfile = (Button)findViewById(R.id.button_editProfile);
 
-        notificationManager.notify(1, notification);
-    }
-
-    public void sendOnChannel2(View v) {
-        String title = editTextTitle.getText().toString();
-        String message = editTextMessage.getText().toString();
-
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .build();
-
-        notificationManager.notify(2, notification);
-    }*/
-
-    public void openSMS(){
-        Intent intent = new Intent(this, SMSTest.class);
-        startActivity(intent);
-    }
-    //---------------------------------------------------------------
-    public void SMSButton(){
-
-        //smsButton = (Button)findViewById(R.id.buttonSMS);
-
-        /*smsButton.setOnClickListener(
+        buttonEditProfile.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        openSMS();
-                    }
-                }
-        );*/
-    }
-
-   /* public void EditProfile(){
-
-        button_editProfile.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        openEdit();
+                        openEditProfile();
                     }
                 }
         );
-    }*/
+    }
 
-    public void openEdit(){
+    public void openEditProfile(){
         Intent intent = new Intent(this, PatientEditProfile.class);
         startActivity(intent);
     }
+    //---------------------------------------------------------------
 
 }
