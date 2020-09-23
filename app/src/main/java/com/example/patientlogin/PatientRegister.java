@@ -172,29 +172,30 @@ public class PatientRegister extends AppCompatActivity {
                         String query1 = CHECK_PATIENT;
 
                         PreparedStatement ps1 = con.prepareStatement(query1);
-                        ps1.setString(1, pEmail);
-                        ps1.setString(2, pContact);
+                        ps1.setString(1, pContact);
+                        ps1.setString(2, pEmail);
 
                         ResultSet rs = ps1.executeQuery();
 
-                            while(rs.next()) {
+                            if(rs.next()) {
 
-                                checkNum = rs.getString(1);
+                                /*checkNum = rs.getString(1);
                                 checkEmail = rs.getString(2);
 
-                                /*System.out.println(checkNum + checkEmail);*/
+                                *//*System.out.println(checkNum + checkEmail);*//*
 
                                 if(checkNum.equals(pContact) || checkEmail.equals(pEmail)){
                                     z = "Account already exists.";
                                 }else{
 
-                                }
+                                }*/
 
                                 /*check=false;*/
 
+                                z = "Account already exists.";
+
                             }
-
-
+                            else {
                                 PreparedStatement ps = con.prepareStatement(query);
                                 ps.setString(1, pEmail);
                                 ps.setString(2, pPass);
@@ -206,7 +207,7 @@ public class PatientRegister extends AppCompatActivity {
 
                                 isSuccess = true;
                                 z = "Registration successfull";
-
+                            }
 
 
                         }
