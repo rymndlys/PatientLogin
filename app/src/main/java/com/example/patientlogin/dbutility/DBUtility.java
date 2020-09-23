@@ -4,12 +4,19 @@ public interface DBUtility {
 
     //connection class
     String jdbcDriverName = "com.mysql.jdbc.Driver";
-    String jdbcUrl = "jdbc:mysql://192.168.1.16/keruxdb";
+    String jdbcUrl = "jdbc:mysql://192.168.1.13/keruxdb";
     String dbUserName = "KeruxAdmin";
     String dbPassword = "admin";
 
     //login
     String LOGIN_PATIENT = "select patient_id, contactno, password, name from patient where contactno = ? and password = ?";
+
+    //register patient
+    String REGISTER_PATIENT = "insert into patient (email, password, patienttype_id, name, contactno, status) " +
+            "values(?, ?, ?, ?, ?, 'Active')";
+
+    //check for existing account
+    String CHECK_PATIENT = "select contactno, email from patient where contactno = ? or email = ?";
 
     //queueing
     String SELECT_QUEUE="select queue.queue_id from queue " +
@@ -19,5 +26,13 @@ public interface DBUtility {
     String QUEUE_PATIENT = "insert into instance (patient_id, queue_id, queuetype, status, priority, QueueNumber) " +
             "values( ? , ? , ? , ?, ?, 1)";
 
+    //to retrieve info for edit profile
+    String EDIT_PROFILE="select email, password, patienttype_id, name, contactno from patient" +
+            "where patient_id = ?";
+
+    //update string
+    String UPDATE_PROFILE="update patient" +
+            "set email, = ? password, =? patienttype_id, =? name, =? contactno, =?" +
+            "where patient_id =  ?";
 }
 

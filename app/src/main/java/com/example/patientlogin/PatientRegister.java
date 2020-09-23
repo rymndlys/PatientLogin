@@ -17,9 +17,13 @@ import android.widget.Toast;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import static com.example.patientlogin.dbutility.DBUtility.CHECK_PATIENT;
+import static com.example.patientlogin.dbutility.DBUtility.REGISTER_PATIENT;
 
 
 public class PatientRegister extends AppCompatActivity {
@@ -126,6 +130,8 @@ public class PatientRegister extends AppCompatActivity {
         String z = "";
         boolean isSuccess = false;
 
+        String checkNum, checkEmail;
+
 
         @Override
         protected void onPreExecute() {
@@ -151,19 +157,59 @@ public class PatientRegister extends AppCompatActivity {
             else
             {
                 try {
+
+
+
                     Connection con = connectionClass.CONN();
                     if (con == null) {
                         z = "Please check your internet connection";
                     } else {
-                        String query=" insert into patient (email, password, patienttype_id, name, contactno, status) values('"+pEmail+"', '"+pPass+"', '"+pType+"'," +
-                                " '"+pName+"', '"+pContact+"', 'Active')";
 
-                        Statement stmt = con.createStatement();
-                        stmt.executeUpdate(query);
+                        String query = REGISTER_PATIENT;
 
-                        isSuccess=true;
-                        z = "Registration successfull";
-                    }
+                        /*boolean check=true;*/
+
+                        String query1 = CHECK_PATIENT;
+
+                        PreparedStatement ps1 = con.prepareStatement(query1);
+                        ps1.setString(1, pEmail);
+                        ps1.setString(2, pContact);
+
+                        ResultSet rs = ps1.executeQuery();
+
+                            while(rs.next()) {
+
+                                checkNum = rs.getString(1);
+                                checkEmail = rs.getString(2);
+
+                                /*System.out.println(checkNum + checkEmail);*/
+
+                                if(checkNum.equals(pContact) || checkEmail.equals(pEmail)){
+                                    z = "Account already exists.";
+                                }else{
+
+                                }
+
+                                /*check=false;*/
+
+                            }
+
+
+                                PreparedStatement ps = con.prepareStatement(query);
+                                ps.setString(1, pEmail);
+                                ps.setString(2, pPass);
+                                ps.setString(3, pType);
+                                ps.setString(4, pName);
+                                ps.setString(5, pContact);
+
+                                ps.executeUpdate();
+
+                                isSuccess = true;
+                                z = "Registration successfull";
+
+
+
+                        }
                 }
                 catch (Exception ex)
                 {

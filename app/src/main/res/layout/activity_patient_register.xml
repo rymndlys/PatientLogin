@@ -105,6 +105,7 @@
         android:layout_height="41dp"
         android:background="@android:color/transparent"
         android:ems="10"
+        android:maxLength="11"
         android:hint="Contact Number"
         android:inputType="textPersonName"
         android:textSize="24sp"

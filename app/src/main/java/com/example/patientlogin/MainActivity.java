@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                         z = "Please check your internet connection";
                     } else {
                         try {
-
+                            boolean loginCheck = false;
 
                             String query = LOGIN_PATIENT;
 
@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                             ResultSet rs = ps.executeQuery();
 
                             while (rs.next()) {
+                                loginCheck=true;
                                 pID = rs.getString(1);
                                 cn = rs.getString(2);
                                 pass = rs.getString(3);
@@ -141,14 +142,10 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                                 } else
                                     isSuccess = false;
 
-                            /*attempt_counter--;
-                            attempt.setText(Integer.toString(attempt_counter));
-
-                            if(attempt_counter == 0)
-                                button_login.setEnabled(false);*/
                             }
-
-
+                            if(!loginCheck) {
+                                z = "Login unsuccessful";
+                            }
                         } catch (Exception e) {
 
                             Thread.dumpStack(); //always put this from sir mon
@@ -171,8 +168,10 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                 intent.putExtra("NAME", pName);
                 startActivity(intent);
 
+
             }
             progressDialog.hide();
+
         }
 
 

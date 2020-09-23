@@ -40,9 +40,9 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
 
-    private String urlAddressDoctors = "http://192.168.1.16:80/kerux/doctorSpinner.php";
-    private String urlAddressDepartments = "http://192.168.1.16:80/kerux/departmentSpinner.php";
-    private String urlAddressTransaction = "http://192.168.1.16:80/kerux/doctorType.php";
+    private String urlAddressDoctors = "http://192.168.1.13:80/kerux/doctorSpinner.php";
+    private String urlAddressDepartments = "http://192.168.1.13:80/kerux/departmentSpinner.php";
+    private String urlAddressTransaction = "http://192.168.1.13:80/kerux/doctorType.php";
 
     private Spinner spinnerDoc;
     private Spinner spinnerDept;
@@ -182,8 +182,6 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                         ps.setString(1, getDeptValue);
                         ps.setString(2, getDoctorValue);
 
-                        /*Statement stmt = con.createStatement();*/
-                        // stmt.executeUpdate(query);
                         ResultSet rs= ps.executeQuery();
 
                         while (rs.next()) {
