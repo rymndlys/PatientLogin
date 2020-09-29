@@ -13,6 +13,15 @@ public class KeruxSession {
         prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
     }
 
+    public void setemail(String email) {
+        prefs.edit().putString("email", email).commit();
+    }
+
+    public String getemail() {
+        String email = prefs.getString("email","");
+        return email;
+    }
+
     public void setcontactno(String contactno) {
         prefs.edit().putString("contactno", contactno).commit();
     }
@@ -39,13 +48,22 @@ public class KeruxSession {
         return patientid;
     }
 
-    public void setusername(String username) {
-        prefs.edit().putString("username", username).commit();
+    public void setfirstname(String firstname) {
+        prefs.edit().putString("firstname", firstname).commit();
     }
 
-    public String getusername() {
-        String username = prefs.getString("username","");
-        return username;
+    public String getfirstname() {
+        String firstname = prefs.getString("firstname","");
+        return firstname;
+    }
+
+    public void setlastname(String lastname) {
+        prefs.edit().putString("lastname", lastname).commit();
+    }
+
+    public String getlastname() {
+        String lastname = prefs.getString("lastname","");
+        return lastname;
     }
 }
 

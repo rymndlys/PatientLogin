@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
 
         ArrayList <String> ar = new ArrayList<String>();
 
-        String pID, pName,cn,pass;
+        String pID, fName, lName, cn,pass, email;
 
         @Override
         protected void onPreExecute() {
@@ -127,15 +127,20 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                                 pID = rs.getString(1);
                                 cn = rs.getString(2);
                                 pass = rs.getString(3);
-                                pName = rs.getString(4);
+                                email = rs.getString(4);
+                                fName = rs.getString(5);
+                                lName = rs.getString(6);
 
 
-                                ar.add(pName);
+                                ar.add(fName);
+                                ar.add(lName);
 
                                 if (cn.equals(usernam) && pass.equals(passstr)) {
                                     session.setcontactno(cn);
                                     session.setpassword(pass);
-                                    session.setusername(pName);
+                                    session.setemail(email);
+                                    session.setfirstname(fName);
+                                    session.setlastname(lName);
                                     session.setpatientid(pID);
                                     isSuccess = true;
                                     z = "Login successfull";
@@ -165,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
             if(isSuccess) {
                 Intent intent=new Intent(MainActivity.this,PatientDashboard.class);
                 // intent.putExtra("name",usernam);
-                intent.putExtra("NAME", pName);
+                intent.putExtra("NAME", fName + " " + lName);
                 startActivity(intent);
 
 
