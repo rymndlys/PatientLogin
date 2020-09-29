@@ -98,6 +98,8 @@ public class PatientEditProfile extends AppCompatActivity {
         String z = "";
         boolean isSuccess = false;
 
+        String pID;
+
         ArrayList<String> ar = new ArrayList<String>();
 
         @Override
@@ -108,12 +110,18 @@ public class PatientEditProfile extends AppCompatActivity {
             super.onPreExecute();
         }
 
+        *//*sql retrieves current patient data using select method and place in corresponding text fields
+                user will now have the chance to edit the said text fields
+                user will press the update button
+                sql update will get the entry from the fields and push the new data to the database
+                make an intent that will either go back to the dashboard or stay at the edit profile page*//*
+
         @Override
         protected String doInBackground(String... params) {
-            *//*if(patientNam.trim().equals("")||passstr.trim().equals(""))
-                z = "Please enter all fields...."; //add validation if acct does not exist
+            if(patientNam.trim().equals("")||patientPass.trim().equals(""))
+                z = "Please enter values in the Name and Password....";
             else
-            {*//*
+            {
                 try {
                     Connection con = connectionClass.CONN();
                     if (con == null) {
@@ -122,27 +130,28 @@ public class PatientEditProfile extends AppCompatActivity {
                         try {
 
 
-                            String query = EDIT_PROFILE;
-                            String queryE = UPDATE_PROFILE;
+                            String query = EDIT_PROFILE; //select
+                            String query1 = UPDATE_PROFILE; //update
 
-                            PreparedStatement ps = con.prepareStatement(query);
+                            PreparedStatement ps = con.prepareStatement(query); // ps for query which is edit profile
                             ps.setString(1, session.getpatientid());
-                            *//*ps.setString(2, passstr);*//*
+                            *//*ps.setString(2, session.getusername());*//*
 
 
 
-                            *//*Statement stmt = con.createStatement();*//*
+                            // Statement stmt = con.createStatement();
                             // stmt.executeUpdate(query);
-                            ResultSet rs = ps.executeQuery();
+                            ResultSet rs = ps.executeQuery(); // rs used by ps which is edit profile
 
                             while (rs.next()) {
                                 pID = rs.getString(1);
-                                cn = rs.getString(2);
-                                pass = rs.getString(3);
-                                pName = rs.getString(4);
 
 
-                                ar.add(pName);
+
+                                *//*ar.add(patientNam);
+                                ar.add(patientContactN);
+                                ar.add(patientEmai);
+                                ar.add(patientPass);*//*
 
                                 if (cn.equals(usernam) && pass.equals(passstr)) {
                                     session.setcontactno(cn);
@@ -167,16 +176,16 @@ public class PatientEditProfile extends AppCompatActivity {
                     isSuccess = false;
                     z = "Exceptions"+ex;
                 }
-            *//*}*//*
+            }
             return z;        }
 
         @Override
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
-                Intent intent=new Intent(MainActivity.this,PatientDashboard.class);
+                Intent intent=new Intent(PatientEditProfile.this,PatientDashboard.class);
                 // intent.putExtra("name",usernam);
-                intent.putExtra("NAME", pName);
+                *//*intent.putExtra("NAME", pName);*//*
                 startActivity(intent);
 
             }
