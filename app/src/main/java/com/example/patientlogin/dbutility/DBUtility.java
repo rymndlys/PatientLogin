@@ -4,12 +4,12 @@ public interface DBUtility {
 
     //connection class
     String jdbcDriverName = "com.mysql.jdbc.Driver";
-    String jdbcUrl = "jdbc:mysql://192.168.1.13/keruxdb";
+    String jdbcUrl = "jdbc:mysql://192.168.1.2/keruxdb2";
     String dbUserName = "KeruxAdmin";
     String dbPassword = "admin";
 
     //login
-    String LOGIN_PATIENT = "select patient_id, contactno, password, name from patient where contactno = ? and password = ?";
+    String LOGIN_PATIENT = "select patient_id, contactno, password, email, firstname, lastname from patient where contactno = ? and password = ?";
 
     //register patient
     String REGISTER_PATIENT = "insert into patient (email, password, patienttype_id, name, contactno, status) " +
@@ -31,8 +31,6 @@ public interface DBUtility {
             "where patient_id = ?";
 
     //update string
-    String UPDATE_PROFILE="update patient" +
-            "set email, = ? password, =? patienttype_id, =? name, =? contactno, =?" +
-            "where patient_id =  ?";
+    String UPDATE_PROFILE="update patient set email = ?, password = ?, firstname = ?, lastname = ?, contactno = ? where patient_id =  ?";
 }
 

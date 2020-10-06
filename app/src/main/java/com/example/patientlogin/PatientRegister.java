@@ -12,15 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 import static com.example.patientlogin.dbutility.DBUtility.CHECK_PATIENT;
 import static com.example.patientlogin.dbutility.DBUtility.REGISTER_PATIENT;
@@ -28,7 +25,8 @@ import static com.example.patientlogin.dbutility.DBUtility.REGISTER_PATIENT;
 
 public class PatientRegister extends AppCompatActivity {
 
-    private EditText name;
+    private EditText fname;
+    private EditText lname;
     private EditText email;
     private EditText password;
     private EditText contact;
@@ -59,7 +57,8 @@ public class PatientRegister extends AppCompatActivity {
         connectionClass = new ConnectionClass();
         progressDialog = new ProgressDialog(this);
 
-        name = (EditText)findViewById(R.id.editText_patientName);
+        fname = (EditText)findViewById(R.id.editText_patientFName);
+        lname = (EditText)findViewById(R.id.editText_patientLName);
         email = (EditText)findViewById(R.id.editText_patientEmail);
         password = (EditText)findViewById(R.id.editText_patientPasswordSet);
         contact = (EditText) findViewById(R.id.editText_patientContactNum);
@@ -122,7 +121,8 @@ public class PatientRegister extends AppCompatActivity {
 
     private class DoRegister extends AsyncTask<String,String,String> {
 
-        String pName = name.getText().toString();
+        String fName = fname.getText().toString();
+        String lName = lname.getText().toString();
         String pEmail = email.getText().toString();
         String pPass = password.getText().toString();
         String pContact = contact.getText().toString();
@@ -152,7 +152,7 @@ public class PatientRegister extends AppCompatActivity {
                 pType = "3";
             }
 
-            if(pName.trim().equals("")|| pEmail.trim().equals("")|| pPass.trim().equals("")|| pContact.trim().equals("")|| pType.trim().equals(""))
+            if(fName.trim().equals("")|| lName.trim().equals("")|| pEmail.trim().equals("")|| pPass.trim().equals("")|| pContact.trim().equals("")|| pType.trim().equals(""))
                 z = "Please enter all fields....";
             else
             {
@@ -200,8 +200,9 @@ public class PatientRegister extends AppCompatActivity {
                                 ps.setString(1, pEmail);
                                 ps.setString(2, pPass);
                                 ps.setString(3, pType);
-                                ps.setString(4, pName);
-                                ps.setString(5, pContact);
+                                ps.setString(4, fName);
+                                ps.setString(5, lName);
+                                ps.setString(6, pContact);
 
                                 ps.executeUpdate();
 
