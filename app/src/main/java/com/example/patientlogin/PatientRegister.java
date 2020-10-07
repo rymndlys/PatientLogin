@@ -153,7 +153,7 @@ public class PatientRegister extends AppCompatActivity {
             }
 
             if(fName.trim().equals("")|| lName.trim().equals("")|| pEmail.trim().equals("")|| pPass.trim().equals("")|| pContact.trim().equals("")|| pType.trim().equals(""))
-                z = "Please enter all fields....";
+                z = "Please enter all fields.";
             else
             {
                 try {

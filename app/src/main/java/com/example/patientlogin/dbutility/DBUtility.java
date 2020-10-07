@@ -23,8 +23,18 @@ public interface DBUtility {
             "inner join department on department.department_id = queue.department_id " +
             "inner join doctor on doctor.doctor_id = queue.doctor_id " +
             "where department.name = ? and doctor.name = ? and queue.endtime is null";
-    String QUEUE_PATIENT = "insert into instance (patient_id, queue_id, queuetype, status, priority, QueueNumber) " +
-            "values( ? , ? , ? , ?, ?, 1)";
+
+    //updated queueing
+    String QUEUE_PATIENT = "insert into instance (patient_id, queue_id, queuetype, status, priority) " +
+            "values( ? , ? , ? , ?, ?)";
+    String SELECT_NEW_INSTANCE = "Select MAX(instance_id) from instance";
+    String SELECT_COUNT_QUEUELIST = "Select COUNT(queue_id) from queuelist where queue_id=? and status='Active'";
+    String INSERT_QUEUE_LIST = "insert into queuelist (queue_id, instance_id, queuenumber, status) values(?, ?, ?, 'Active')";
+    String UPDATE_QUEUE_NUMBER = "update instance set queuenumber = ? where instance_id= ?";
+
+
+    //IN THE VIEW PAGE TICKET
+    String SELECT_QUEUENUMBER="SELECT queuenumber from instance where instance_id=?";
 
     //to retrieve info for edit profile
     String EDIT_PROFILE="select email, password, patienttype_id, name, contactno from patient" +

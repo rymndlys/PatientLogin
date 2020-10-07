@@ -41,7 +41,7 @@ public class PatientDashboard extends AppCompatActivity {
     private EditText editTextMessage;
 
     private Button smsButton;
-    private Button buttonEditProfile;
+
 
     ConnectionClass connectionClass;
 
@@ -50,7 +50,7 @@ public class PatientDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_dashboard);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_view);
+        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_view);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -72,36 +72,36 @@ public class PatientDashboard extends AppCompatActivity {
                 }
                 return false;
             }
-        });
+        });*/
 
 
-        EditProfileButton();
+        /*EditProfileButton();*/
 
         connectionClass = new ConnectionClass();
         //--------------------------------------------------------------------------------------------------
 
-        TextView title = (TextView) findViewById(R.id.dateToday);
+        /*TextView title = (TextView) findViewById(R.id.dateToday);
         title.setText(giveDate());
 
         TextView patientName = (TextView)findViewById(R.id.patientName);
 
         patientName.setText("Hello " +getIntent().getStringExtra("NAME"));
 
-        notificationManager = NotificationManagerCompat.from(this);
+        notificationManager = NotificationManagerCompat.from(this);*/
 
 
     }
     //--------------------------------------------------------------------------------------------------
 
-    public String giveDate() {
+    /*public String giveDate() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy");
-        return sdf.format(cal.getTime());
+        return sdf.format(cal.getTime());*/
     }
     //--------------------------------------------------------------------------------------------------
 
 
-    public void EditProfileButton(){
+    /*public void EditProfileButton(){
 
         buttonEditProfile = (Button)findViewById(R.id.button_editProfile);
 
@@ -113,12 +113,12 @@ public class PatientDashboard extends AppCompatActivity {
                     }
                 }
         );
-    }
+    }*/
 
-    public void openEditProfile(){
+    /*public void openEditProfile(){
         Intent intent = new Intent(this, PatientEditProfile.class);
         startActivity(intent);
-    }
+    }*/
     //---------------------------------------------------------------
 
-}
+

@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         username.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         password = (EditText)findViewById(R.id.editText_password);
-        attempt = (TextView) findViewById(R.id.attempt_count);
+        /*attempt = (TextView) findViewById(R.id.attempt_count);*/
         button_login = (Button)findViewById(R.id.button_login);
 
         session = new KeruxSession(getApplicationContext());
