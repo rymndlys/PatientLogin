@@ -44,8 +44,8 @@ public class PatientEditProfile extends AppCompatActivity {
 
         connectionClass = new ConnectionClass();
 
-        TextView title = (TextView) findViewById(R.id.dateToday);
-        title.setText(giveDate());
+        /*TextView title = (TextView) findViewById(R.id.dateToday);
+        title.setText(giveDate());*/
 
         session = new KeruxSession(getApplicationContext());
 
@@ -93,9 +93,9 @@ public class PatientEditProfile extends AppCompatActivity {
         String z = "";
         boolean isSuccess = false;
 
-        String pID;
+        /*String pID;*/
 
-        ArrayList<String> ar = new ArrayList<String>();
+        /*ArrayList<String> ar = new ArrayList<String>();*/
 
         @Override
         protected void onPreExecute() {
