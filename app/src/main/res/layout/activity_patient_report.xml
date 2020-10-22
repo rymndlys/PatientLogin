@@ -31,26 +31,9 @@
         app:srcCompat="@drawable/newsubmitreports" />
 
     <EditText
-        android:id="@+id/editText_contactNum"
-        android:layout_width="493dp"
-        android:layout_height="81dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:hint="Contact number, email and name will be retrieved in the database"
-        android:inputType="number"
-        android:maxLength="11"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.015" />
-
-    <EditText
         android:id="@+id/editText_message"
-        android:layout_width="366dp"
-        android:layout_height="321dp"
+        android:layout_width="266dp"
+        android:layout_height="217dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textMultiLine|textPersonName"

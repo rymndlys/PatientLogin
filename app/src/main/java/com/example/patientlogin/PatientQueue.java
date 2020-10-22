@@ -40,13 +40,13 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
 
-    private String urlAddressDoctors = "http://192.168.1.2:80/kerux/doctorSpinner.php";
-    private String urlAddressDepartments = "http://192.168.1.2:80/kerux/departmentSpinner.php";
-    private String urlAddressTransaction = "http://192.168.1.2:80/kerux/doctorType.php";
+    private String urlAddressDoctors = "http://192.168.1.11:80/kerux/doctorSpinner.php";
+    private String urlAddressDepartments = "http://192.168.1.11:80/kerux/departmentSpinner.php";
+    /*private String urlAddressTransaction = "http://192.168.1.2:80/kerux/doctorType.php";*/
 
     private Spinner spinnerDoc;
     private Spinner spinnerDept;
-    private Spinner spinnerTransaction;
+    /*private Spinner spinnerTransaction;*/
 
     private Button button_ViewQueue;
     private Button button_queueNow;
@@ -58,7 +58,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_queue);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_view);
+        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_view);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -80,19 +80,19 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                 }
                 return false;
             }
-        });
+        });*/
         //--------------------------------------------------------------------------------------------------
         session=new KeruxSession(getApplicationContext());
 
         spinnerDoc = (Spinner)findViewById(R.id.spinnerPrefDoc);
         spinnerDept = (Spinner)findViewById(R.id.spinnerPrefArea);
-        spinnerTransaction = (Spinner)findViewById(R.id.spinnerTransactionMethod);
+        /*spinnerTransaction = (Spinner)findViewById(R.id.spinnerTransactionMethod);*/
 
         connectionClass = new ConnectionClass();
         progressDialog = new ProgressDialog(this);
 
         button_queueNow = (Button)findViewById(R.id.buttonQueueNow);
-        button_ViewQueue = (Button)findViewById(R.id.buttonViewQueue);
+        /*button_ViewQueue = (Button)findViewById(R.id.buttonViewQueue);*/
 
         button_queueNow.setOnClickListener(new View.OnClickListener() {//
             @Override
@@ -102,14 +102,14 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
             }
         });
 
-        ViewQueueButton();
+        /*ViewQueueButton();*/
 
         Downloader doc=new Downloader(PatientQueue.this,urlAddressDoctors,spinnerDoc, "Name");
         doc.execute();
         Downloader dept=new Downloader(PatientQueue.this,urlAddressDepartments,spinnerDept, "Name");
         dept.execute();
-        Downloader transact=new Downloader(PatientQueue.this,urlAddressTransaction,spinnerTransaction, "Type");
-        transact.execute();
+        /*Downloader transact=new Downloader(PatientQueue.this,urlAddressTransaction,spinnerTransaction, "Type");
+        transact.execute();*/
 
 
 
@@ -117,7 +117,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
 
     //dito mga own classes
 
-    public void ViewQueueButton(){
+    /*public void ViewQueueButton(){
 
         button_ViewQueue = (Button)findViewById(R.id.buttonViewQueue);
 
@@ -129,12 +129,12 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                     }
                 }
         );
-    }
+    }*/
 
-    public void openViewQueue(){
+    /*public void openViewQueue(){
         Intent intent = new Intent(this, PatientViewQueue.class);
         startActivity(intent);
-    }
+    }*/
 
     //=====================
     //=====================
@@ -144,7 +144,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
 
         String getDoctorValue = (String)spinnerDoc.getSelectedItem().toString();
         String getDeptValue = (String)spinnerDept.getSelectedItem().toString();
-        String getQueueType = (String)spinnerTransaction.getSelectedItem().toString();
+        /*String getQueueType = (String)spinnerTransaction.getSelectedItem().toString();*/
         String isPriority = "";
         Security sec = new Security();
 
@@ -158,7 +158,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         @Override
         protected String doInBackground(String... params) {
 
-            if(getQueueType.equals("PWD&Senior")){
+            if(session.getpatienttype().equals("PWD&Senior")){
 
                 isPriority = "Yes";
             }else{
@@ -166,7 +166,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
             }
 
 
-            if (getDoctorValue == "" && getDeptValue == "" && getQueueType == "")
+            if (getDoctorValue == "" && getDeptValue == "")
                 z = "Please enter all fields....";
 
             else
@@ -191,7 +191,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                             PreparedStatement ps2 = con.prepareStatement(query2);
                             ps2.setString(1, session.getpatientid());
                             ps2.setString(2, qID);
-                            ps2.setString(3, getQueueType);
+                            ps2.setString(3, session.getpatienttype());
                             ps2.setString(4, "InLine");
                             ps2.setString(5, isPriority);
 
@@ -248,7 +248,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
-                Intent intent=new Intent(PatientQueue.this,PatientQueue.class);
+                Intent intent=new Intent(PatientQueue.this,PatientSuccess.class);
                 // intent.putExtra("name",usernam);
                 startActivity(intent);
                 Toast.makeText(PatientQueue.this, getDoctorValue, Toast.LENGTH_SHORT).show();

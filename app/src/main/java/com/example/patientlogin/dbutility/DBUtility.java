@@ -4,7 +4,7 @@ public interface DBUtility {
 
     //connection class
     String jdbcDriverName = "com.mysql.jdbc.Driver";
-    String jdbcUrl = "jdbc:mysql://192.168.1.2/keruxdb2";
+    String jdbcUrl = "jdbc:mysql://192.168.1.11/keruxdb2";
     String dbUserName = "KeruxAdmin";
     String dbPassword = "admin";
 
@@ -31,6 +31,10 @@ public interface DBUtility {
     String SELECT_COUNT_QUEUELIST = "Select COUNT(queue_id) from queuelist where queue_id=? and status='Active'";
     String INSERT_QUEUE_LIST = "insert into queuelist (queue_id, instance_id, queuenumber, status) values(?, ?, ?, 'Active')";
     String UPDATE_QUEUE_NUMBER = "update instance set queuenumber = ? where instance_id= ?";
+
+    String VIEW_QUEUE = "";
+
+    String VIEW_PATIENT_QUEUE = "select queuenumber from instance where patient_id = ?";
 
 
     //IN THE VIEW PAGE TICKET

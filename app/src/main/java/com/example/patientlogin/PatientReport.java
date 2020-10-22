@@ -19,13 +19,14 @@ import java.sql.Statement;
 
 public class PatientReport extends AppCompatActivity {
 
-    private static EditText name;
-    private static EditText email;
-    private static EditText contactNum;
-    private static EditText message;
-    private static Button button_report;
+    private EditText name;
+    private EditText email;
+    private EditText contactNum;
+    private EditText message;
+    private Button button_report;
 
     ConnectionClass connectionClass;
+    private KeruxSession session;//global variable
     ProgressDialog progressDialog;
 
     @Override
@@ -39,9 +40,9 @@ public class PatientReport extends AppCompatActivity {
         connectionClass = new ConnectionClass();
         progressDialog = new ProgressDialog(this);
 
-        name = findViewById(R.id.editText_name);
+        /*name = findViewById(R.id.editText_name);
         email = findViewById(R.id.editText_email);
-        contactNum = findViewById(R.id.editText_contactNum);
+        contactNum = findViewById(R.id.editText_contactNum);*/
         message = findViewById(R.id.editText_message);
         button_report = findViewById(R.id.button_report);
 
@@ -52,13 +53,21 @@ public class PatientReport extends AppCompatActivity {
                 doreport.execute();
             }
         });
+
+        session = new KeruxSession(getApplicationContext());
+
+        /*session.getfirstname();
+        session.getlastname();
+        session.getcontactno();
+        session.getemail();
+        session.getpatientid();*/
     }
 
     private class DoReport extends AsyncTask<String,String,String> {
 
-        String rName = name.getText().toString();
+        /*String rName = name.getText().toString();
         String rEmail = email.getText().toString();
-        String rContact = contactNum.getText().toString();
+        String rContact = contactNum.getText().toString();*/
         String rMessage = message.getText().toString();
         String z = "";
         boolean isSuccess = false;
@@ -73,7 +82,7 @@ public class PatientReport extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            if(rName.trim().equals("") || rEmail.trim().equals("") || rContact.trim().equals("") || rMessage.trim().equals(""))
+            if(rMessage.trim().equals(""))
                 z = "Please enter all fields....";
             else
             {
@@ -82,8 +91,8 @@ public class PatientReport extends AppCompatActivity {
                     if (con == null) {
                         z = "Please check your internet connection";
                     } else {
-                        String query=" insert into error_report (name, description, status, email, contactno) " +
-                                "values('"+rName+"', '"+rMessage+"', 'ongoing', '"+rEmail+"', '"+rContact+"') ";
+                        String query=" insert into error_report (firstname, lastname, description, status, email, contactno) " +
+                                "values('"+session.getfirstname()+"', '"+session.getlastname()+"', '"+rMessage+"', 'ongoing', '"+session.getemail()+"', '"+session.getcontactno()+"') ";
 
                         Statement stmt = con.createStatement();
                         stmt.executeUpdate(query);

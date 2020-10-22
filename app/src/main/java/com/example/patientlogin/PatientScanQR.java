@@ -37,7 +37,7 @@ public class PatientScanQR extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_scan_qr);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_view);
+        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_view);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -59,7 +59,7 @@ public class PatientScanQR extends AppCompatActivity {
                 }
                 return false;
             }
-        });//--------------------------------------------------------------------------------------------------
+        });*///--------------------------------------------------------------------------------------------------
         surfaceView = (SurfaceView)findViewById(R.id.camerapreview);
         textView = (TextView)findViewById(R.id.textView);
 

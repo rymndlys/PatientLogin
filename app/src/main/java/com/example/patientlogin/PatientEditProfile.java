@@ -75,11 +75,11 @@ public class PatientEditProfile extends AppCompatActivity {
 
     }
 
-    public String giveDate() {
+    /*public String giveDate() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy");
         return sdf.format(cal.getTime());
-    }
+    }*/
 
     //=================================================================================================================
 

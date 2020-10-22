@@ -14,6 +14,7 @@ public class KeruxSession {
     }
 
     public void setemail(String email) {
+
         prefs.edit().putString("email", email).commit();
     }
 
@@ -65,5 +66,25 @@ public class KeruxSession {
         String lastname = prefs.getString("lastname","");
         return lastname;
     }
+
+    public void setpatienttype(String patienttype){
+        prefs.edit().putString("patienttype", patienttype).commit();
+    }
+
+    public String getpatienttype() {
+        String patienttype = prefs.getString("patienttype","");
+        return patienttype;
+    }
+
+    public void setchosendept(String chosendept){
+        prefs.edit().putString("chosendept", chosendept).commit();
+    }
+
+    public String getchosendept() {
+        String patienttype = prefs.getString("chosendept","");
+        return patienttype;
+    }
+
 }
+
 
