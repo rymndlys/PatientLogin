@@ -22,7 +22,7 @@ public interface DBUtility {
     String SELECT_QUEUE="select queue.queue_id from queue " +
             "inner join department on department.department_id = queue.department_id " +
             "inner join doctor on doctor.doctor_id = queue.doctor_id " +
-            "where department.name = ? and doctor.name = ? and queue.endtime is null";
+            "where department.name = ? and doctor.firstname = ? and doctor.lastname = ? and queue.endtime is null";
 
     //updated queueing
     String QUEUE_PATIENT = "insert into instance (patient_id, queue_id, queuetype, status, priority) " +
