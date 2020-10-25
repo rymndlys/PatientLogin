@@ -1,11 +1,13 @@
 package com.example.patientlogin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.app.ProgressDialog;
+import android.view.View;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -22,6 +24,8 @@ public class PatientViewQueue extends AppCompatActivity {
     private KeruxSession session;//global variable
     ProgressDialog progressDialog;
 
+    DrawerLayout drawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,59 @@ public class PatientViewQueue extends AppCompatActivity {
 
         currentDate = (TextView) findViewById(R.id.txtDate);
         currentDate.setText(giveDate());
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+    }
+
+    public void ClickMenu (View view){
+        //open drawer
+        PatientDashboard.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo (View view){
+        //Close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
+    }
+
+    public void ClickDashboard(View view){
+        //Redirect activity to dashboard
+        PatientDashboard.redirectActivity(this, PatientDashboard.class);
+    }
+
+    public void ClickQueueUp(View view){
+        //recreate activity
+        PatientDashboard.redirectActivity(this, PatientQueue.class);
+    }
+
+    public void ClickViewCurrentQueue(View view){
+        //recreate activity
+        recreate();
+    }
+
+    public void ClickScanQR(View view){
+        //Redirect
+        PatientDashboard.redirectActivity(this, PatientViewQueue.class);
+    }
+
+    public void ClickEditProfile(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientEditProfile.class);
+    }
+
+    public void ClickSubmitReport(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientReport.class);
+    }
+
+    public void ClickLogout(View view){
+        PatientDashboard.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
     }
 
     public String giveDate() {

@@ -1,11 +1,14 @@
 package com.example.patientlogin;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -23,6 +26,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import java.sql.Connection;
@@ -42,6 +47,7 @@ public class PatientDashboard extends AppCompatActivity {
 
     private Button smsButton;
 
+    DrawerLayout drawerLayout;
 
     ConnectionClass connectionClass;
 
@@ -50,31 +56,7 @@ public class PatientDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_dashboard);
 
-        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.nav_view);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_Home:
-                        break;
-                    case R.id.navigation_Scan:
-                        Intent a = new Intent(PatientDashboard.this, PatientScanQR.class);
-                        startActivity(a);
-                        break;
-                    case R.id.navigation_Queue:
-                        Intent b = new Intent(PatientDashboard.this, PatientQueue.class);
-                        startActivity(b);
-                        break;
-                    case R.id.   navigation_Contact:
-                        Intent c = new Intent(PatientDashboard.this, PatientReportLoggedIn.class);
-                        startActivity(c);
-                        break;
-                }
-                return false;
-            }
-        });*/
-
-
+        drawerLayout = findViewById(R.id.drawer_layout);
         /*EditProfileButton();*/
 
         connectionClass = new ConnectionClass();
@@ -90,6 +72,109 @@ public class PatientDashboard extends AppCompatActivity {
         notificationManager = NotificationManagerCompat.from(this);*/
 
 
+    }
+
+    public void ClickMenu (View view){
+        //open drawer
+        openDrawer(drawerLayout);
+    }
+
+    public static void openDrawer(DrawerLayout drawerLayout) {
+        //open drawer layout
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void ClickLogo (View view){
+        //Close drawer
+        closeDrawer(drawerLayout);
+    }
+
+    public static void closeDrawer(DrawerLayout drawerLayout) {
+        //Close drawer layout
+        //check condition
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            //When drawer is open
+            //Close drawer
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    public void ClickDashboard(View view){
+        //Recreate activity
+        recreate();
+    }
+
+    public void ClickQueueUp(View view){
+        //Redirect activity to manage accounts
+        redirectActivity(this, PatientQueue.class);
+    }
+
+    public void ClickViewCurrentQueue(View view){
+        //Redirect activity to enrollment
+        redirectActivity(this, PatientViewQueue.class);
+    }
+
+    public void ClickScanQR(View view){
+        //redirect activity to revoke page
+        redirectActivity(this, PatientScanQR.class);
+    }
+    public void ClickEditProfile(View view){
+        //redirect activity to revoke page
+        redirectActivity(this, PatientEditProfile.class);
+    }
+    public void ClickSubmitReport(View view){
+        //redirect activity to revoke page
+        redirectActivity(this, PatientReport.class);
+    }
+
+    public void ClickLogout(View view){
+        logout(this);
+    }
+
+    public static void logout(final Activity activity) {
+        //Initialize alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        //set title
+        builder.setTitle("Logout");
+        //set message
+        builder.setMessage("Are you sure you want to logout?");
+        //Positive yes button
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //Finish activity
+                activity.finishAffinity();
+                //exit app
+                System.exit(0);
+            }
+        });
+
+        //negative no button
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //dismiss dialog
+                dialogInterface.dismiss();
+            }
+        });
+        //show dialog
+        builder.show();
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass) {
+        //Initialize intent
+        Intent intent = new Intent(activity,aClass);
+        //set flag
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //start activity
+        activity.startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //close drawer
+        closeDrawer(drawerLayout);
     }
     //--------------------------------------------------------------------------------------------------
 

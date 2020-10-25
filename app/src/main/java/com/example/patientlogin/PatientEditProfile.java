@@ -1,6 +1,7 @@
 package com.example.patientlogin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +37,8 @@ public class PatientEditProfile extends AppCompatActivity {
     ConnectionClass connectionClass;
     private KeruxSession session;//global variable
     ProgressDialog progressDialog;
+
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,61 @@ public class PatientEditProfile extends AppCompatActivity {
             }
         });
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+
     }
+
+    public void ClickMenu (View view){
+        //open drawer
+        PatientDashboard.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo (View view){
+        //Close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
+    }
+
+    public void ClickDashboard(View view){
+        //Redirect activity to dashboard
+        PatientDashboard.redirectActivity(this, PatientDashboard.class);
+    }
+
+    public void ClickQueueUp(View view){
+        //recreate activity
+        PatientDashboard.redirectActivity(this, PatientQueue.class);
+    }
+
+    public void ClickViewCurrentQueue(View view){
+        //Redirect
+        PatientDashboard.redirectActivity(this, PatientViewQueue.class);
+    }
+
+    public void ClickScanQR(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientScanQR.class);
+    }
+
+    public void ClickEditProfile(View view){
+        //recreate activity
+        recreate();
+    }
+
+    public void ClickSubmitReport(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientReport.class);
+    }
+
+    public void ClickLogout(View view){
+        PatientDashboard.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
+    }
+
 
     /*public String giveDate() {
         Calendar cal = Calendar.getInstance();

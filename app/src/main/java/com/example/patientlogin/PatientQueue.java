@@ -3,6 +3,7 @@ package com.example.patientlogin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -52,6 +53,8 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     private Button button_queueNow;
 
     private KeruxSession session;//global variable
+
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +114,59 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         /*Downloader transact=new Downloader(PatientQueue.this,urlAddressTransaction,spinnerTransaction, "Type");
         transact.execute();*/
 
+        drawerLayout = findViewById(R.id.drawer_layout);
 
+    }
 
+    public void ClickMenu (View view){
+        //open drawer
+        PatientDashboard.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo (View view){
+        //Close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
+    }
+
+    public void ClickDashboard(View view){
+        //Redirect activity to dashboard
+        PatientDashboard.redirectActivity(this, PatientDashboard.class);
+    }
+
+    public void ClickQueueUp(View view){
+        //recreate activity
+        recreate();
+    }
+
+    public void ClickViewCurrentQueue(View view){
+        //Redirect
+        PatientDashboard.redirectActivity(this, PatientViewQueue.class);
+    }
+
+    public void ClickScanQR(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientScanQR.class);
+    }
+
+    public void ClickEditProfile(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientEditProfile.class);
+    }
+
+    public void ClickSubmitReport(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientReport.class);
+    }
+
+    public void ClickLogout(View view){
+        PatientDashboard.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
     }
 
     //dito mga own classes

@@ -1,6 +1,7 @@
 package com.example.patientlogin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -29,6 +30,8 @@ public class PatientReport extends AppCompatActivity {
     private KeruxSession session;//global variable
     ProgressDialog progressDialog;
 
+    DrawerLayout drawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class PatientReport extends AppCompatActivity {
 
         connectionClass = new ConnectionClass();
         progressDialog = new ProgressDialog(this);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         /*name = findViewById(R.id.editText_name);
         email = findViewById(R.id.editText_email);
@@ -61,6 +66,57 @@ public class PatientReport extends AppCompatActivity {
         session.getcontactno();
         session.getemail();
         session.getpatientid();*/
+    }
+
+    public void ClickMenu (View view){
+        //open drawer
+        PatientDashboard.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo (View view){
+        //Close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
+    }
+
+    public void ClickDashboard(View view){
+        //Redirect activity to dashboard
+        PatientDashboard.redirectActivity(this, PatientDashboard.class);
+    }
+
+    public void ClickQueueUp(View view){
+        //recreate activity
+        PatientDashboard.redirectActivity(this, PatientQueue.class);
+    }
+
+    public void ClickViewCurrentQueue(View view){
+        //Redirect
+        PatientDashboard.redirectActivity(this, PatientViewQueue.class);
+    }
+
+    public void ClickScanQR(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientScanQR.class);
+    }
+
+    public void ClickEditProfile(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientEditProfile.class);
+    }
+
+    public void ClickSubmitReport(View view){
+        //recreate activity
+        recreate();
+    }
+
+    public void ClickLogout(View view){
+        PatientDashboard.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
     }
 
     private class DoReport extends AsyncTask<String,String,String> {

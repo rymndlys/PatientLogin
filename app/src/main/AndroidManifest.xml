@@ -37,13 +37,13 @@
         </activity>
         <activity android:name=".PatientScanQR" />
         <activity android:name=".PatientQueue" />
-        <activity
+    <!--    <activity
             android:name=".PatientDashboard"
-            android:label="@string/title_activity_patient_dashboard" />
+            android:label="@string/title_activity_patient_dashboard" />-->
         <activity android:name=".PatientReport" />
         <activity android:name=".PatientRegister" />
-        <activity android:name=".MainActivity"
-            android:theme="@style/SplashTheme">
+        <activity android:name=".PatientDashboard">
+            <!--android:theme="@style/SplashTheme"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

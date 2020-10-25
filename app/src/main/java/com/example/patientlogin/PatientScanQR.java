@@ -3,6 +3,7 @@ package com.example.patientlogin;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -31,6 +33,7 @@ public class PatientScanQR extends AppCompatActivity {
     TextView textView;
     BarcodeDetector barcodeDetector;
 
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,5 +120,58 @@ public class PatientScanQR extends AppCompatActivity {
                     }
                 }
             });
+
+            drawerLayout = findViewById(R.id.drawer_layout);
+    }
+
+    public void ClickMenu (View view){
+        //open drawer
+        PatientDashboard.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo (View view){
+        //Close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
+    }
+
+    public void ClickDashboard(View view){
+        //Redirect activity to dashboard
+        PatientDashboard.redirectActivity(this, PatientDashboard.class);
+    }
+
+    public void ClickQueueUp(View view){
+        //recreate activity
+        PatientDashboard.redirectActivity(this, PatientQueue.class);
+    }
+
+    public void ClickViewCurrentQueue(View view){
+        //Redirect
+        PatientDashboard.redirectActivity(this, PatientViewQueue.class);
+    }
+
+    public void ClickScanQR(View view){
+        //recreate activity
+        recreate();
+    }
+
+    public void ClickEditProfile(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientEditProfile.class);
+    }
+
+    public void ClickSubmitReport(View view){
+        //redirect
+        PatientDashboard.redirectActivity(this, PatientReport.class);
+    }
+
+    public void ClickLogout(View view){
+        PatientDashboard.logout(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //close drawer
+        PatientDashboard.closeDrawer(drawerLayout);
     }
 }
