@@ -1,5 +1,6 @@
 package com.example.patientlogin;
 
+import androidx.annotation.MainThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -14,7 +15,12 @@ public class SplashPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_page);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
+
 /*
         *//* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*//*
