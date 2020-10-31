@@ -4,7 +4,7 @@ public interface DBUtility {
 
     //connection class
     String jdbcDriverName = "com.mysql.jdbc.Driver";
-    String jdbcUrl = "jdbc:mysql://192.168.1.11/keruxdb2";
+    String jdbcUrl = "jdbc:mysql://192.168.1.2/keruxFinal";
     String dbUserName = "KeruxAdmin";
     String dbPassword = "admin";
 

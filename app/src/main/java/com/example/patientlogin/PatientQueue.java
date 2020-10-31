@@ -41,8 +41,8 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
 
-    private String urlAddressDoctors = "http://192.168.1.11:80/kerux/doctorSpinner.php";
-    private String urlAddressDepartments = "http://192.168.1.11:80/kerux/departmentSpinner.php";
+    private String urlAddressDoctors = "http://192.168.1.2:80/kerux/doctorSpinner.php";
+    private String urlAddressDepartments = "http://192.168.1.2:80/kerux/departmentSpinner.php";
     /*private String urlAddressTransaction = "http://192.168.1.2:80/kerux/doctorType.php";*/
 
     private Spinner spinnerDoc;
