@@ -21,6 +21,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            layout="@layout/main_toolbar"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="5dp" />
         <!--lagay mo dito mga textview, button, textbox-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -28,9 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <include
-            layout="@layout/main_toolbar"/>
 
     </LinearLayout>
 

@@ -4,21 +4,16 @@ public interface DBUtility {
 
     //connection class
     String jdbcDriverName = "com.mysql.jdbc.Driver";
-    String jdbcUrl = "jdbc:mysql://192.168.1.2/keruxFinal";
+    String jdbcUrl = "jdbc:mysql://192.168.1.2/keruxfinal";
     String dbUserName = "KeruxAdmin";
     String dbPassword = "admin";
-
-  /*  String jdbcDriverName = "com.mysql.jdbc.Driver";//vxcd9lOiVlb9DcyuaKAzLr5qD7AQB+5gr7zwfl1MXhY=
-    String jdbcUrl ="jdbc:mysql://192.168.1.13/keruxdb";//jdbc:mysql://192.168.1.1/keruxdb
-    String dbUserName = "user";//user//o9gPQILs8mlgWTtuaBMBFA==
-    String dbPassword = "admin";//admin//oCeOPEBYh4uhgDL4d2Q/8g==*/
 
     //login
     String LOGIN_PATIENT = "select patient_id, contactno, password, email, firstname, lastname from patient where contactno = ? and password = ?";
 
     //register patient
-    String REGISTER_PATIENT = "insert into patient (email, password, patienttype_id, name, contactno, status) " +
-            "values(?, ?, ?, ?, ?, 'Active')";
+    String REGISTER_PATIENT = "insert into patient (email, password, patienttype_id, firstname, lastname, contactno, status) " +
+            "values(?, ?, ?, ?, ?, ?, 'Active')";
 
     //check for existing account
     String CHECK_PATIENT = "select contactno, email from patient where contactno = ? or email = ?";
@@ -49,7 +44,13 @@ public interface DBUtility {
     String EDIT_PROFILE="select email, password, patienttype_id, name, contactno from patient" +
             "where patient_id = ?";
 
-    //update string
-    String UPDATE_PROFILE="update patient set email = ?, password = ?, firstname = ?, lastname = ?, contactno = ? where patient_id =  ?";
+    //update profile string
+    String UPDATE_PROFILE="update patient set email = ?, firstname = ?, lastname = ?, contactno = ? where patient_id =  ?";
+
+    //sql statement for edit profile to not require the input of password when just editing basic patient information
+    String UPDATE_PROFILE_PASS = "update patient set password = ?";
+
+    //sql statement to compare the "old password" the patient has inputted in the text field from the one in the database
+    String CONFIRM_PATIENT_PASS = "select password from patient where password = ?";
 }
 

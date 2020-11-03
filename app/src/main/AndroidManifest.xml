@@ -37,11 +37,11 @@
         </activity>
         <activity android:name=".PatientScanQR" />
         <activity android:name=".PatientQueue">
-        <intent-filter>
+        <!--<intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        </intent-filter-->>
         </activity>
         <activity
             android:name=".PatientDashboard"
@@ -50,11 +50,11 @@
         <activity android:name=".PatientRegister" />
         <activity android:name=".MainActivity"
             android:theme="@style/SplashTheme">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
         <meta-data

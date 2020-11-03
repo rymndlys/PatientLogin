@@ -88,8 +88,6 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         String z = "";
         boolean isSuccess = false;
 
-        ArrayList <String> ar = new ArrayList<String>();
-
         String pID, fName, lName, cn,pass, email;
 
         @Override
@@ -120,8 +118,6 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                             ps.setString(1, usernam);
                             ps.setString(2, passstr);
 
-                            /*Statement stmt = con.createStatement();*/
-                            // stmt.executeUpdate(query);
                             ResultSet rs = ps.executeQuery();
 
                             while (rs.next()) {
@@ -132,10 +128,6 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                                 email = rs.getString(4);
                                 fName = rs.getString(5);
                                 lName = rs.getString(6);
-
-
-                                ar.add(fName);
-                                ar.add(lName);
 
                                 if (cn.equals(usernam) && pass.equals(passstr)) {
                                     session.setcontactno(cn);

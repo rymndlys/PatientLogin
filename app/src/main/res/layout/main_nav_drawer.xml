@@ -11,16 +11,16 @@
         android:layout_margin="16dp"
         android:onClick="ClickLogo"
         android:src="@drawable/kerux_icon"/>
-    
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kerux Admin"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_gravity="center"
+        android:text="Welcome, Patient!"
         android:textAlignment="center"
-        android:textColor="#636363"/>
+        android:textColor="#636363"
+        android:textSize="20sp"
+        android:textStyle="bold" />
     
     <View
         android:layout_width="match_parent"
@@ -51,31 +51,6 @@
             android:layout_marginEnd="48dp"
             android:src="@drawable/ic_baseline_dashboard_24"
             android:layout_marginRight="48dp" />
-        
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:onClick="ClickQueueUp">
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="12dp"
-            android:text="Queue Up"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp" />
-        
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:layout_marginRight="48dp"
-            android:src="@drawable/ic_baseline_queue_24"/>
         
     </LinearLayout>
 
