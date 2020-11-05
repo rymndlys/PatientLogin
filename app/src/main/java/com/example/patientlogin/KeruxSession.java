@@ -13,6 +13,24 @@ public class KeruxSession {
         prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
     }
 
+    public void setinstanceid(String instanceid) {
+        prefs.edit().putString("instanceid", instanceid).commit();
+    }
+
+    public String getinstanceid() {
+        String instanceid = prefs.getString("instanceid","");
+        return instanceid;
+    }
+
+    public void setclinicid(String clinicid) {
+        prefs.edit().putString("clinicid", clinicid).commit();
+    }
+
+    public String getclinicid() {
+        String clinicid = prefs.getString("clinicid","");
+        return clinicid;
+    }
+
     public void setemail(String email) {
 
         prefs.edit().putString("email", email).commit();
