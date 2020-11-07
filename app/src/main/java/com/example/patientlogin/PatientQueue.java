@@ -41,8 +41,8 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
 
-    private String urlAddressDoctors = "http://192.168.1.2:80/kerux/doctorSpinner.php";
-    private String urlAddressDepartments = "http://192.168.1.2:80/kerux/departmentSpinner.php";
+    private String urlAddressDoctors = "http://10.70.0.17:8081/kerux/doctorSpinner.php";
+    private String urlAddressDepartments = "http://10.70.0.17:8081/kerux/departmentSpinner.php";
     /*private String urlAddressTransaction = "http://192.168.1.2:80/kerux/doctorType.php";*/
 
     private Spinner spinnerDoc;
@@ -107,9 +107,9 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
 
         /*ViewQueueButton();*/
 
-        Downloader doc=new Downloader(PatientQueue.this,urlAddressDoctors,spinnerDoc, "Name");
+        Downloader doc=new Downloader(PatientQueue.this,urlAddressDoctors,spinnerDoc, "FirstName LastName", session.getclinicid());
         doc.execute();
-        Downloader dept=new Downloader(PatientQueue.this,urlAddressDepartments,spinnerDept, "Name");
+        Downloader dept=new Downloader(PatientQueue.this,urlAddressDepartments,spinnerDept, "Name", session.getclinicid());
         dept.execute();
         /*Downloader transact=new Downloader(PatientQueue.this,urlAddressTransaction,spinnerTransaction, "Type");
         transact.execute();*/
@@ -234,12 +234,17 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
 
                         PreparedStatement ps = con.prepareStatement(query);
                         ps.setString(1, getDeptValue);
-                        ps.setString(2, getDoctorValue);
+                        ps.setString(2, getDoctorValue.trim());
+                        session.setchosendept(getDeptValue);
+                        session.setchosendoc(getDoctorValue.trim());
+
 
                         ResultSet rs= ps.executeQuery();
-
-                        while (rs.next()) {
+                        boolean once=true;
+                        while (rs.next()&&once) {
+                            once=false;
                             String qID=rs.getString(1);
+                            session.setqueueid(qID);
                             String query2=QUEUE_PATIENT;
 
                             PreparedStatement ps2 = con.prepareStatement(query2);
@@ -257,7 +262,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                             while(rs1.next()){
                                 String instanceid=rs1.getString(1);//THIS IS THE INSTANCE ID
                                 //WE NEED TO PUT THIS IN A SESSION SO THAT WE CAN VIEW OUR QUEUENUMBER IN THE OTHER PAGE
-
+                                session.setinstanceid(instanceid);
                                 String query4=SELECT_COUNT_QUEUELIST;//COUNTS THE NUMBER OF PEOPLE ON THE QUEUE SO WE CAN ASSIGN A QUEUE NUMBER
                                 PreparedStatement ps4=con.prepareStatement(query4);
                                 ps4.setString(1,qID);

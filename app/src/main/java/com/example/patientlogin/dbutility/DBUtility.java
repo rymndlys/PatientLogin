@@ -24,10 +24,10 @@ public interface DBUtility {
     String CHECK_PATIENT = "select contactno, email from patient where contactno = ? or email = ?";
 
     //queueing
-    String SELECT_QUEUE="select queue.queue_id from queue " +
-            "inner join department on department.department_id = queue.department_id " +
-            "inner join doctor on doctor.doctor_id = queue.doctor_id " +
-            "where department.name = ? and doctor.firstname = ? and doctor.lastname = ? and queue.endtime is null";
+    String SELECT_QUEUE="select queue.queue_id from queue inner join department " +
+            "on department.department_id = queue.department_id inner join doctor " +
+            "on doctor.doctor_id = queue.doctor_id where department.name = ? and " +
+            "CONCAT(doctor.firstname, ' ', doctor.lastname) = ? and queue.endtime is null";
 
     //updated queueing
     String QUEUE_PATIENT = "insert into instance (patient_id, queue_id, queuetype, status, priority) " +
@@ -44,6 +44,10 @@ public interface DBUtility {
 
     //IN THE VIEW PAGE TICKET
     String SELECT_QUEUENUMBER="SELECT queuenumber from instance where instance_id=?";
+    String SELECT_CURRENTLY_CALLING="select instance.queuenumber from instance inner join queuelist " +
+            "on queuelist.instance_id = instance.instance_id inner join queue " +
+            "on queue.queue_id = queuelist.queue_id where queue.queue_id = ? and " +
+            "queuelist.status = 'Called'";
 
     //to retrieve info for edit profile
     String EDIT_PROFILE="select email, password, patienttype_id, name, contactno from patient" +

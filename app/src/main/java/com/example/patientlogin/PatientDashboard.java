@@ -69,6 +69,7 @@ public class PatientDashboard extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.listView_Clinics);
         connectionClass = new ConnectionClass();
         ClinicList cl =new ClinicList(PatientDashboard.this, listView);
+        cl.execute();
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -77,6 +78,7 @@ public class PatientDashboard extends AppCompatActivity {
                 Intent intent = new Intent(PatientDashboard.this, PatientQueue.class);
                 Clinic item = (Clinic) listView.getAdapter().getItem(position);
                 session.setclinicid(String.valueOf(item.getClinic_id()));
+                Toast.makeText(getBaseContext(),session.getclinicid(),Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
         });

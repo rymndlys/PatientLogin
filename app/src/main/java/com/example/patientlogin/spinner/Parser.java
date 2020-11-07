@@ -19,12 +19,14 @@ public class Parser extends AsyncTask<Void,Void,Integer> {//TO BE USED WHEN WE H
     ArrayList names=new ArrayList();
     Spinner sp;
     String columnName;
+    String clinicid;
 
-    public Parser(Context c, String data,Spinner sp, String columnName) {
+    public Parser(Context c, String data,Spinner sp, String columnName, String clinicid) {
         this.c = c;
         this.data = data;
         this.sp=sp;
         this.columnName=columnName;
+        this.clinicid=clinicid;
     }
 
     @Override
@@ -56,8 +58,16 @@ public class Parser extends AsyncTask<Void,Void,Integer> {//TO BE USED WHEN WE H
             for (int i=0;i<ja.length();i++)
             {
                 jo=ja.getJSONObject(i);
-                String name=jo.getString(columnName);
-                names.add(name);
+                String[] arr = columnName.split(" ");
+                String word="";
+                for (String s : arr)
+                    word+=" "+jo.getString(s);
+
+                String cid=jo.getString("Clinic_ID");
+                if(cid.equals(clinicid)){
+                    names.add(word);
+                }
+//                names.add(name);
             }
 
             return 1;

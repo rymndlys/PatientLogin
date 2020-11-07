@@ -3,6 +3,7 @@ package com.example.patientlogin.spinner;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,12 +20,14 @@ public class Downloader extends AsyncTask<Void,Void,String> {//TO BE USED WHEN W
     Spinner sp;
     ProgressDialog pd;
     String columnName;
+    String clinicid;
 
-    public Downloader(Context c, String urlAddress, Spinner sp, String columnName) {
+    public Downloader(Context c, String urlAddress, Spinner sp, String columnName, String clinicid) {
         this.c = c;
         this.urlAddress = urlAddress;
         this.sp = sp;
         this.columnName=columnName;
+        this.clinicid=clinicid;
     }
 
     @Override
@@ -52,7 +55,8 @@ public class Downloader extends AsyncTask<Void,Void,String> {//TO BE USED WHEN W
 
         if(s != null)
         {
-            Parser p=new Parser(c,s,sp, columnName);
+            Parser p=new Parser(c,s,sp, columnName, clinicid);
+            Log.d("CLINICID", clinicid);
             p.execute();
 
         }else {

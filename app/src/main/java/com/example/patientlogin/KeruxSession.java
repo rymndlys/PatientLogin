@@ -22,6 +22,15 @@ public class KeruxSession {
         return instanceid;
     }
 
+    public void setqueueid(String queueid) {
+        prefs.edit().putString("queueid", queueid).commit();
+    }
+
+    public String getqueueid() {
+        String queueid = prefs.getString("queueid","");
+        return queueid;
+    }
+
     public void setclinicid(String clinicid) {
         prefs.edit().putString("clinicid", clinicid).commit();
     }
@@ -103,6 +112,14 @@ public class KeruxSession {
         return patienttype;
     }
 
+    public void setchosendoc(String chosendoc){
+        prefs.edit().putString("chosendoc", chosendoc).commit();
+    }
+
+    public String getchosendoc() {
+        String chosendoc = prefs.getString("chosendoc","");
+        return chosendoc;
+    }
 }
 
 
