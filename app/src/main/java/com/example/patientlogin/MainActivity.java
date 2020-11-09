@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.patientlogin.dbutility.DBUtility;
+import com.example.patientlogin.security.Security;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         button_login = (Button)findViewById(R.id.button_login);
 
         session = new KeruxSession(getApplicationContext());
-
-
 
         button_login.setOnClickListener(new View.OnClickListener() {//
             @Override
