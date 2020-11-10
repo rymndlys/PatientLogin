@@ -9,7 +9,7 @@ public interface DBUtility {
 //    String dbPassword = "admin";
 
     String jdbcDriverName = "com.mysql.jdbc.Driver";
-    String jdbcUrl ="jdbc:mysql://10.70.0.17/keruxdbupdate";
+    String jdbcUrl ="jdbc:mysql://192.168.1.6/keruxfinal";
     String dbUserName = "KeruxAdmin";
     String dbPassword = "admin";
 

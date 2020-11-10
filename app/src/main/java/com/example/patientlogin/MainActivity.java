@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
 
         GuestButton();
         RegisterButton();
-        ReportButton();
+
 
         connectionClass = new ConnectionClass();
         progressDialog = new ProgressDialog(this);
@@ -222,20 +222,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         Intent intent = new Intent(this, PatientRegister.class);
         startActivity(intent);
     }
-    //---------------------------------------------------------------
-    public void ReportButton(){
-        button_report = (Button)findViewById(R.id.reportButton);
 
-        button_report.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        openReport();
-                    }
-                }
-        );
-
-    }
 
     public void openReport(){
         Intent intent = new Intent(this, PatientReport.class);

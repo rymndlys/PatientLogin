@@ -309,7 +309,8 @@ public class PatientEditProfile extends AppCompatActivity {
                     z = "Exceptions"+ex;
                 }
             }
-            return z;        }
+            return z;
+        }
 
         @Override
         protected void onPostExecute(String s) {
