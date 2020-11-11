@@ -11,16 +11,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="605dp"
-            android:layout_height="1210dp"
+            android:layout_width="562dp"
+            android:layout_height="1139dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintHorizontal_bias="0.428"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.506"
+            app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/newqueuepage" />
 
         <Button
@@ -32,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.459" />
+            app:layout_constraintVertical_bias="0.427" />
 
         <Button
             android:id="@+id/buttonQueueLater"
@@ -43,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.984" />
+            app:layout_constraintVertical_bias="0.968" />
 
         <Spinner
             android:id="@+id/spinnerPrefArea"
@@ -53,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.211" />
+            app:layout_constraintVertical_bias="0.175" />
 
         <Spinner
             android:id="@+id/spinnerPrefDoc"
@@ -61,10 +62,10 @@
             android:layout_height="61dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.363" />
+            app:layout_constraintVertical_bias="0.33" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

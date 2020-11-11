@@ -43,7 +43,7 @@ public class PatientRegister extends AppCompatActivity {
 
     private Button button_signUp;
     private Button button_login;
-    private Button button_report;
+
 
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
@@ -61,7 +61,6 @@ public class PatientRegister extends AppCompatActivity {
         mySpinner.setAdapter(myAdapter);
 
         BackToLogin();
-        ReportButton();
 
         connectionClass = new ConnectionClass();
         progressDialog = new ProgressDialog(this);
@@ -75,7 +74,7 @@ public class PatientRegister extends AppCompatActivity {
         button_signUp = (Button)findViewById(R.id.button_signUp);
 
         button_login = (Button)findViewById(R.id.buttonLogin);
-        button_report = (Button)findViewById(R.id.reportButton);
+
 
         contact.setInputType(InputType.TYPE_CLASS_NUMBER);
 
@@ -109,24 +108,6 @@ public class PatientRegister extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ReportButton(){
-        button_report = (Button)findViewById(R.id.reportButton);
-
-        button_report.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        openReport();
-                    }
-                }
-        );
-
-    }
-
-    public void openReport(){
-        Intent intent = new Intent(this, PatientReport.class);
-        startActivity(intent);
-    }
 
     private class DoRegister extends AsyncTask<String,String,String> {
 
