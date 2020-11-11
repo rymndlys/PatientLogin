@@ -76,6 +76,15 @@ public class KeruxSession {
         return patientid;
     }
 
+    public void setguestid(String guestid) {
+        prefs.edit().putString("guestid", guestid).commit();
+    }
+
+    public String getguestid() {
+        String guestid = prefs.getString("guestid","");
+        return guestid;
+    }
+
     public void setfirstname(String firstname) {
         prefs.edit().putString("firstname", firstname).commit();
     }

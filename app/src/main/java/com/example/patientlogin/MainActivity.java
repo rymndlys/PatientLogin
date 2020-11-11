@@ -5,6 +5,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -21,6 +22,13 @@ import android.widget.Toast;
 import com.example.patientlogin.dbutility.DBUtility;
 import com.example.patientlogin.security.Security;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -104,53 +112,63 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
             else
             {
                 try {
-                    Connection con = connectionClass.CONN();
-                    if (con == null) {
-                        z = "Please check your internet connection";
-                    } else {
-                        try {
-                            boolean loginCheck = false;
+                    z="Login failed";
+                    URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/LoginPatientServlet");
+                    URLConnection connection = url.openConnection();
 
-                            String query = LOGIN_PATIENT;
+                    connection.setReadTimeout(10000);
+                    connection.setConnectTimeout(15000);
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
 
-                            PreparedStatement ps = con.prepareStatement(query);
-                            ps.setString(1, usernam);
-                            ps.setString(2, passstr);
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("username", usernam)
+                            .appendQueryParameter("password", passstr);
+                    String query = builder.build().getEncodedQuery();
 
-                            ResultSet rs = ps.executeQuery();
+                    OutputStream os = connection.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
 
-                            while (rs.next()) {
-                                loginCheck=true;
-                                pID = rs.getString(1);
-                                cn = rs.getString(2);
-                                pass = rs.getString(3);
-                                email = rs.getString(4);
-                                fName = rs.getString(5);
-                                lName = rs.getString(6);
-
-                                if (cn.equals(usernam) && pass.equals(passstr)) {
-                                    session.setcontactno(cn);
-                                    session.setpassword(pass);
-                                    session.setemail(email);
-                                    session.setfirstname(fName);
-                                    session.setlastname(lName);
-                                    session.setpatientid(pID);
-                                    isSuccess = true;
-                                    z = "Login successfull";
-                                } else
-                                    isSuccess = false;
-
-                            }
-                            if(!loginCheck) {
-                                z = "Login unsuccessful";
-                            }
-                        } catch (Exception e) {
-
-                            Thread.dumpStack(); //always put this from sir mon
-                        }
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String returnString="";
+                    ArrayList<String> output=new ArrayList<String>();
+                    while ((returnString = in.readLine()) != null)
+                    {
+                        isSuccess=true;
+                        z = "Logged in successfully!";
+                        output.add(returnString);
                     }
+                    for (int i = 0; i < output.size(); i++) {
+                        if(i==0){
+                            pID=output.get(i);
+                        }
+                        else if(i==1){
+                            cn=output.get(i);
+                        }
+                        else if(i==2){
+                            pass=output.get(i);
+                        }
+                        else if(i==3){
+                            email=output.get(i);
+                        }
+                        else if(i==4){
+                            fName=output.get(i);
+                        }
+                        else if(i==5){
+                            lName=output.get(i);
+                        }
+
+                    }
+                    in.close();
+
                 }catch (Exception ex)
                 {
+                    z="Login failed";
                     isSuccess = false;
                     z = "Exceptions"+ex;
                 }
@@ -161,6 +179,12 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
+                session.setcontactno(cn);
+                session.setpassword(pass);
+                session.setemail(email);
+                session.setfirstname(fName);
+                session.setlastname(lName);
+                session.setpatientid(pID);
                 Intent intent=new Intent(MainActivity.this,PatientDashboard.class);
                 // intent.putExtra("name",usernam);
                 intent.putExtra("NAME", fName + " " + lName);
@@ -193,7 +217,9 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        openAsGuest();
+
+                        GuestLogin gl=new GuestLogin();
+                        gl.execute();
                     }
                 }
         );
@@ -265,6 +291,59 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         return super.onOptionsItemSelected(item);
     }
 
+    private class GuestLogin extends AsyncTask<String,String,String> {
 
+
+        String z = "";
+        boolean isSuccess = false;
+
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/RegisterPatientServlet");
+                URLConnection connection = url.openConnection();
+
+                connection.setReadTimeout(10000);
+                connection.setConnectTimeout(15000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String returnString = "";
+                ArrayList<String> output = new ArrayList<String>();
+                while ((returnString = in.readLine()) != null) {
+                    isSuccess = true;
+                    z = "Logged in as guest";
+                    session.setguestid(returnString);
+                    output.add(returnString);
+                }
+                in.close();
+            } catch (Exception ex) {
+                isSuccess = false;
+                z = "Exceptions" + ex;
+            }
+            return z;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
+            if(isSuccess) {
+                openAsGuest();
+            }
+            progressDialog.hide();
+        }
+    }
 
 }

@@ -6,7 +6,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 
 import android.content.Intent;
@@ -21,6 +23,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 
 import com.example.patientlogin.dbutility.DBUtility;
@@ -33,6 +43,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Queue;
 
@@ -41,8 +52,8 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
 
-    private String urlAddressDoctors = "http://10.70.0.17:8081/kerux/doctorSpinner.php";
-    private String urlAddressDepartments = "http://10.70.0.17:8081/kerux/departmentSpinner.php";
+    private String urlAddressDoctors = "https://isproj2a.benilde.edu.ph/Sympl/doctorSpinnerServlet";
+    private String urlAddressDepartments = "https://isproj2a.benilde.edu.ph/Sympl/departmentSpinnerServlet";
     /*private String urlAddressTransaction = "http://192.168.1.2:80/kerux/doctorType.php";*/
 
     private Spinner spinnerDoc;
@@ -226,73 +237,50 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
             else
             {
                 try {
-                    Connection con = connectionClass.CONN();
-                    if (con == null) {
-                        z = "Please check your internet connection";
-                    } else {
-                        String query=SELECT_QUEUE;
+                    session.setchosendept(getDeptValue);
+                    session.setchosendoc(getDoctorValue.trim());
+                    URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/QueuePatientServlet");
+                    URLConnection connection = url.openConnection();
 
-                        PreparedStatement ps = con.prepareStatement(query);
-                        ps.setString(1, getDeptValue);
-                        ps.setString(2, getDoctorValue.trim());
-                        session.setchosendept(getDeptValue);
-                        session.setchosendoc(getDoctorValue.trim());
+                    connection.setReadTimeout(10000);
+                    connection.setConnectTimeout(15000);
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
 
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("getdepval", getDeptValue)
+                            .appendQueryParameter("getdocval", getDoctorValue.trim())
+                            .appendQueryParameter("getpatientid", session.getpatientid())
+                            .appendQueryParameter("getpatienttype", session.getpatienttype())
+                            .appendQueryParameter("isPriority", isPriority);
+                    String query = builder.build().getEncodedQuery();
 
-                        ResultSet rs= ps.executeQuery();
-                        boolean once=true;
-                        while (rs.next()&&once) {
-                            once=false;
-                            String qID=rs.getString(1);
-                            session.setqueueid(qID);
-                            String query2=QUEUE_PATIENT;
+                    OutputStream os = connection.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
 
-                            PreparedStatement ps2 = con.prepareStatement(query2);
-                            ps2.setString(1, session.getpatientid());
-                            ps2.setString(2, qID);
-                            ps2.setString(3, session.getpatienttype());
-                            ps2.setString(4, "InLine");
-                            ps2.setString(5, isPriority);
-
-                            ps2.execute();
-
-                            String query3=SELECT_NEW_INSTANCE; //GETS THE INSTANCE ID OF THE NEW INSTANCE CREATED
-                            PreparedStatement ps3 = con.prepareStatement(query3);
-                            ResultSet rs1 = ps3.executeQuery();
-                            while(rs1.next()){
-                                String instanceid=rs1.getString(1);//THIS IS THE INSTANCE ID
-                                //WE NEED TO PUT THIS IN A SESSION SO THAT WE CAN VIEW OUR QUEUENUMBER IN THE OTHER PAGE
-                                session.setinstanceid(instanceid);
-                                String query4=SELECT_COUNT_QUEUELIST;//COUNTS THE NUMBER OF PEOPLE ON THE QUEUE SO WE CAN ASSIGN A QUEUE NUMBER
-                                PreparedStatement ps4=con.prepareStatement(query4);
-                                ps4.setString(1,qID);
-                                ResultSet rs2=ps4.executeQuery();
-                                while(rs2.next()){
-                                    int count=rs2.getInt(1);
-                                    int queuenumber=count+1; //THIS IS THE QUEUE NUMBER
-                                    String query5=INSERT_QUEUE_LIST;
-                                    PreparedStatement ps5=con.prepareStatement(query5);
-                                    ps5.setString(1, qID);
-                                    ps5.setString(2, instanceid);
-                                    ps5.setInt(3, queuenumber);
-                                    ps5.executeQuery(); //WE INSERT DATA IN THE QUEUELIST
-
-                                    String query6=UPDATE_QUEUE_NUMBER;
-                                    PreparedStatement ps6=con.prepareStatement(query6);
-                                    ps6.setInt(1, queuenumber);
-                                    ps6.setString(2, instanceid);
-                                    ps6.executeUpdate(); //UPDATE INSTANCE SO IT HAS QUEUENUMBER
-
-                                }
-
-
-                            }
-                        }
-
-
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String returnString="";
+                    ArrayList<String> output=new ArrayList<String>();
+                    while ((returnString = in.readLine()) != null)
+                    {
+                        z = "Queueing successful";
                         isSuccess=true;
-                        z = "Queueing successfull";
+                        Log.d("returnString", returnString);
+                        output.add(returnString);
                     }
+                    for (int i = 0; i < output.size(); i++) {
+                        String line=output.get(i);
+                        String [] words=line.split("\\s\\|\\s");
+                        session.setqueueid(words[0]);
+                        session.setinstanceid(words[1]);
+                    }
+                    in.close();
+
                 }
                 catch (Exception ex)
                 {

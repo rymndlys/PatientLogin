@@ -5,6 +5,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
@@ -14,9 +15,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class PatientReport extends AppCompatActivity {
 
@@ -147,11 +156,41 @@ public class PatientReport extends AppCompatActivity {
                     if (con == null) {
                         z = "Please check your internet connection";
                     } else {
-                        String query=" insert into error_report (firstname, lastname, description, status, email, contactno) " +
-                                "values('"+session.getfirstname()+"', '"+session.getlastname()+"', '"+rMessage+"', 'ongoing', '"+session.getemail()+"', '"+session.getcontactno()+"') ";
+                        URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ErrorReportPatientServlet");
+                        URLConnection connection = url.openConnection();
 
-                        Statement stmt = con.createStatement();
-                        stmt.executeUpdate(query);
+                        connection.setReadTimeout(10000);
+                        connection.setConnectTimeout(15000);
+                        connection.setDoInput(true);
+                        connection.setDoOutput(true);
+
+                        Uri.Builder builder = new Uri.Builder()
+                                .appendQueryParameter("firstname", session.getfirstname())
+                                .appendQueryParameter("lastname", session.getlastname())
+                                .appendQueryParameter("message", rMessage)
+                                .appendQueryParameter("email", session.getemail())
+                                .appendQueryParameter("contactno", session.getcontactno());
+                        String query = builder.build().getEncodedQuery();
+
+                        OutputStream os = connection.getOutputStream();
+                        BufferedWriter writer = new BufferedWriter(
+                                new OutputStreamWriter(os, "UTF-8"));
+                        writer.write(query);
+                        writer.flush();
+                        writer.close();
+                        os.close();
+
+                        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                        String returnString="";
+                        ArrayList<String> output=new ArrayList<String>();
+                        while ((returnString = in.readLine()) != null)
+                        {
+                            isSuccess=true;
+                            z = returnString;
+                            output.add(returnString);
+                        }
+                        in.close();
+
 
                         goBack();
 

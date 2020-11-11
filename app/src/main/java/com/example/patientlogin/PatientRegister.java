@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
@@ -15,9 +16,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import static com.example.patientlogin.dbutility.DBUtility.CHECK_PATIENT;
 import static com.example.patientlogin.dbutility.DBUtility.REGISTER_PATIENT;
@@ -157,61 +166,41 @@ public class PatientRegister extends AppCompatActivity {
             else
             {
                 try {
+                    URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/RegisterPatientServlet");
+                    URLConnection connection = url.openConnection();
 
+                    connection.setReadTimeout(10000);
+                    connection.setConnectTimeout(15000);
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
 
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("pContact", pContact)
+                            .appendQueryParameter("pEmail", pEmail)
+                            .appendQueryParameter("pPass", pPass)
+                            .appendQueryParameter("pType", pType)
+                            .appendQueryParameter("fName", fName)
+                            .appendQueryParameter("lName", lName);
+                    String query = builder.build().getEncodedQuery();
 
-                    Connection con = connectionClass.CONN();
-                    if (con == null) {
-                        z = "Please check your internet connection";
-                    } else {
+                    OutputStream os = connection.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
 
-                        String query = REGISTER_PATIENT;
-
-                        /*boolean check=true;*/
-
-                        String query1 = CHECK_PATIENT;
-
-                        PreparedStatement ps1 = con.prepareStatement(query1);
-                        ps1.setString(1, pContact);
-                        ps1.setString(2, pEmail);
-
-                        ResultSet rs = ps1.executeQuery();
-
-                            if(rs.next()) {
-
-                                /*checkNum = rs.getString(1);
-                                checkEmail = rs.getString(2);
-
-                                *//*System.out.println(checkNum + checkEmail);*//*
-
-                                if(checkNum.equals(pContact) || checkEmail.equals(pEmail)){
-                                    z = "Account already exists.";
-                                }else{
-
-                                }*/
-
-                                /*check=false;*/
-
-                                z = "Account already exists.";
-
-                            }
-                            else {
-                                PreparedStatement ps = con.prepareStatement(query);
-                                ps.setString(1, pEmail);
-                                ps.setString(2, pPass);
-                                ps.setString(3, pType);
-                                ps.setString(4, fName);
-                                ps.setString(5, lName);
-                                ps.setString(6, pContact);
-
-                                ps.executeUpdate();
-
-                                isSuccess = true;
-                                z = "Registration successfull";
-                            }
-
-
-                        }
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String returnString="";
+                    ArrayList<String> output=new ArrayList<String>();
+                    while ((returnString = in.readLine()) != null)
+                    {
+                        isSuccess=true;
+                        z = returnString;
+                        output.add(returnString);
+                    }
+                    in.close();
                 }
                 catch (Exception ex)
                 {

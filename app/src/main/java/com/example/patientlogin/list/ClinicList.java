@@ -2,6 +2,7 @@ package com.example.patientlogin.list;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ListView;
@@ -13,6 +14,13 @@ import com.example.patientlogin.adapter.ClinicAdapter;
 import com.example.patientlogin.dbutility.DBUtility;
 import com.example.patientlogin.model.Clinic;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,34 +81,33 @@ public class ClinicList extends AsyncTask<Void,Void,String> implements DBUtility
         String z;
         z=null;
         try {
-            Connection con = connectionClass.CONN();
-            if (con == null) {
-                z=null;
-            } else {
+            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ClinicListPatientServlet");
+            URLConnection connection = url.openConnection();
 
-                String query=SELECT_CLINIC;
-
-                PreparedStatement ps = con.prepareStatement(query);
-                // stmt.executeUpdate(query);
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
 
 
-                ResultSet rs=ps.executeQuery();
-
-                while (rs.next())
-                {
-                    String clinicid=rs.getString(1);
-                    String clinicname=rs.getString(2);
-                    String clinichours=rs.getString(5);
-                    String clinicdays=rs.getString(4);
-                    String clinicstatus=rs.getString(5);
-                    Log.d("ClinicData", clinicid+clinicname+clinichours+clinicdays+clinicstatus);
-
-                    clinicsList.add(new Clinic(R.drawable.briefcase, Integer.parseInt(clinicid), clinicname, clinicdays, clinichours, clinicstatus));
-                }
-
-                z="1";
-
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String returnString="";
+            ArrayList<String> output=new ArrayList<String>();
+            while ((returnString = in.readLine()) != null)
+            {
+                z = "1";
+                Log.d("returnString", returnString);
+                output.add(returnString);
             }
+            for (int i = 0; i < output.size(); i++) {
+                String line=output.get(i);
+                String [] words=line.split("\\s\\|\\s");
+                    clinicsList.add(new Clinic(R.drawable.briefcase, Integer.parseInt(words[0]), words[1], words[2], words[3], words[4]));
+                }
+            in.close();
+
+
+
         }
         catch (Exception ex)
         {

@@ -3,6 +3,7 @@ package com.example.patientlogin;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,13 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -181,25 +189,44 @@ public class PatientEditProfile extends AppCompatActivity {
                     } else {
                         try {
 
+                            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/UpdatePatientProfile");
+                            URLConnection connection = url.openConnection();
 
-                            //method to update the basic information of the patient (w/o pass)
-                            String query = UPDATE_PROFILE; //update
+                            connection.setReadTimeout(10000);
+                            connection.setConnectTimeout(15000);
+                            connection.setDoInput(true);
+                            connection.setDoOutput(true);
 
-                            PreparedStatement ps = con.prepareStatement(query); // ps for query which is edit profile
-                            ps.setString(1, patientEmai);
-                            ps.setString(2, patientFirstName);
-                            ps.setString(3, patientLastName);
-                            ps.setString(4, patientContactN);
-                            ps.setString(5, PatientID);
+                            Uri.Builder builder = new Uri.Builder()
+                                    .appendQueryParameter("patientEmai", patientEmai)
+                                    .appendQueryParameter("patientFirstName", patientFirstName)
+                                    .appendQueryParameter("patientLastName", patientLastName)
+                                    .appendQueryParameter("patientContactN", patientContactN)
+                                    .appendQueryParameter("PatientID", PatientID);
+                            String query = builder.build().getEncodedQuery();
 
+                            OutputStream os = connection.getOutputStream();
+                            BufferedWriter writer = new BufferedWriter(
+                                    new OutputStreamWriter(os, "UTF-8"));
+                            writer.write(query);
+                            writer.flush();
+                            writer.close();
+                            os.close();
 
-                            // Statement stmt = con.createStatement();
-                            // stmt.executeUpdate(query);
-                            ps.executeUpdate(); // rs used by ps which is edit profile
-                            isSuccess = true;
-                            z = "Profile successfully edited!";
-
-
+                            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                            String returnString="";
+                            ArrayList<String> output=new ArrayList<String>();
+                            while ((returnString = in.readLine()) != null)
+                            {
+                                session.setemail(patientEmai);
+                                session.setfirstname(patientFirstName);
+                                session.setlastname(patientLastName);
+                                session.setcontactno(patientContactN);
+                                isSuccess=true;
+                                z = "Profile successfully edited!";
+                                output.add(returnString);
+                            }
+                            in.close();
 
 
 
@@ -220,6 +247,7 @@ public class PatientEditProfile extends AppCompatActivity {
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
+
                 Intent intent=new Intent(PatientEditProfile.this,PatientDashboard.class);
                 startActivity(intent);
 
@@ -272,30 +300,39 @@ public class PatientEditProfile extends AppCompatActivity {
                     } else {
                         try {
 
-                            String query = CONFIRM_PATIENT_PASS;
+                            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/UpdatePatientPass");
+                            URLConnection connection = url.openConnection();
 
-                            PreparedStatement ps = con.prepareStatement(query);
-                            ps.setString(1, patientOldPass);
+                            connection.setReadTimeout(10000);
+                            connection.setConnectTimeout(15000);
+                            connection.setDoInput(true);
+                            connection.setDoOutput(true);
 
-                            ResultSet rs = ps.executeQuery();
+                            Uri.Builder builder = new Uri.Builder()
+                                    .appendQueryParameter("patientid", PatientID)
+                                    .appendQueryParameter("oldPassword", patientOldPass)
+                                    .appendQueryParameter("newpass", patientNewPass);
+                            String query = builder.build().getEncodedQuery();
 
-                            while (rs.next()) {
-                                String oldPassword = rs.getString(1);
-                                if(oldPassword.equals(patientOldPass)){
-                                    String query1 = UPDATE_PROFILE_PASS;
+                            OutputStream os = connection.getOutputStream();
+                            BufferedWriter writer = new BufferedWriter(
+                                    new OutputStreamWriter(os, "UTF-8"));
+                            writer.write(query);
+                            writer.flush();
+                            writer.close();
+                            os.close();
 
-                                    PreparedStatement ps1 = con.prepareStatement(query1);
-                                    ps1.setString(1, patientNewPass);
-
-                                    ps1.executeUpdate();
-
-                                }
-
+                            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                            String returnString="";
+                            ArrayList<String> output=new ArrayList<String>();
+                            while ((returnString = in.readLine()) != null)
+                            {
+                                isSuccess=true;
+                                z = "Password successfully edited!";
+                                output.add(returnString);
                             }
+                            in.close();
 
-                            ps.executeUpdate(); // rs used by ps which is edit profile
-                            isSuccess = true;
-                            z = "Password successfully edited!";
 
 
                         } catch (Exception e) {

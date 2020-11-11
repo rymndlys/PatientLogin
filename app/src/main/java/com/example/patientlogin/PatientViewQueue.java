@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -16,10 +17,18 @@ import android.widget.Toast;
 import com.example.patientlogin.dbutility.DBUtility;
 import com.example.patientlogin.security.Security;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PatientViewQueue extends AppCompatActivity implements DBUtility {
@@ -138,28 +147,45 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
                 if (con == null) {
                     z = "Please check your internet connection";
                 } else {
-                    String query=SELECT_QUEUENUMBER;
+                    URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ViewQueuePatientServlet");
+                    URLConnection connection = url.openConnection();
 
-                    PreparedStatement ps = con.prepareStatement(query);
-                    ps.setString(1, session.getinstanceid());
+                    connection.setReadTimeout(10000);
+                    connection.setConnectTimeout(15000);
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
 
+                    Uri.Builder builder = new Uri.Builder()
+                            .appendQueryParameter("instanceid", session.getinstanceid());
+                    String query = builder.build().getEncodedQuery();
 
-                    ResultSet rs= ps.executeQuery();
-                    while (rs.next()) {
-                        qNumber=rs.getString(1);
+                    OutputStream os = connection.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(
+                            new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(query);
+                    writer.flush();
+                    writer.close();
+                    os.close();
 
+                    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String returnString="";
+                    ArrayList<String> output=new ArrayList<String>();
+                    while ((returnString = in.readLine()) != null)
+                    {
+
+                        output.add(returnString);
                     }
-
-                    String query2=SELECT_CURRENTLY_CALLING;
-                    PreparedStatement ps2 = con.prepareStatement(query2);
-                    ps2.setString(1, session.getinstanceid());
-
-
-                    ResultSet rs2= ps2.executeQuery();
-                    while (rs2.next()) {
-                        cCalling=rs2.getString(1);
-
+                    for (int i = 0; i < output.size(); i++) {
+                        String line=output.get(i);
+                        if(i==0){
+                            qNumber=line;
+                        }
+                        if(i==1){
+                            cCalling=line;
+                        }
                     }
+                    in.close();
+
 
 
                     isSuccess=true;
