@@ -196,6 +196,14 @@ public class PatientEditProfile extends AppCompatActivity {
                             // Statement stmt = con.createStatement();
                             // stmt.executeUpdate(query);
                             ps.executeUpdate(); // rs used by ps which is edit profile
+
+                            /*session.setcontactno(cn);
+                            session.setpassword(pass);
+                            session.setemail(email);
+                            session.setfirstname(fName);
+                            session.setlastname(lName);
+                            session.setpatientid(pID);
+                            */
                             isSuccess = true;
                             z = "Profile successfully edited!";
 
@@ -252,12 +260,6 @@ public class PatientEditProfile extends AppCompatActivity {
 
             super.onPreExecute();
         }
-
-        /*sql retrieves current patient data using select method and place in corresponding text fields
-                user will now have the chance to edit the said text fields
-                user will press the update button
-                sql update will get the entry from the fields and push the new data to the database
-                make an intent that will either go back to the dashboard or stay at the edit profile page*/
 
         @Override
         protected String doInBackground(String... params) {
