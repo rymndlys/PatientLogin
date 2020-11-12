@@ -183,11 +183,6 @@ public class PatientEditProfile extends AppCompatActivity {
             else
             {
                 try {
-                    Connection con = connectionClass.CONN();
-                    if (con == null) {
-                        z = "Please check your internet connection";
-                    } else {
-                        try {
 
                             URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/UpdatePatientProfile");
                             URLConnection connection = url.openConnection();
@@ -230,11 +225,7 @@ public class PatientEditProfile extends AppCompatActivity {
 
 
 
-                        } catch (Exception e) {
-                            isSuccess = false;
-                            Thread.dumpStack(); //always put this from sir mon
-                        }
-                    }
+
                 }catch (Exception ex)
                 {
                     isSuccess = false;
@@ -294,11 +285,7 @@ public class PatientEditProfile extends AppCompatActivity {
             else
             {
                 try {
-                    Connection con = connectionClass.CONN();
-                    if (con == null) {
-                        z = "Please check your internet connection";
-                    } else {
-                        try {
+
 
                             URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/UpdatePatientPass");
                             URLConnection connection = url.openConnection();
@@ -335,11 +322,7 @@ public class PatientEditProfile extends AppCompatActivity {
 
 
 
-                        } catch (Exception e) {
-                            isSuccess = false;
-                            Thread.dumpStack(); //always put this from sir mon
-                        }
-                    }
+
                 }catch (Exception ex)
                 {
                     isSuccess = false;

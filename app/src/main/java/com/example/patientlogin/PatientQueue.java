@@ -120,7 +120,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
 
         Downloader doc=new Downloader(PatientQueue.this,urlAddressDoctors,spinnerDoc, "FirstName LastName", session.getclinicid());
         doc.execute();
-        Downloader dept=new Downloader(PatientQueue.this,urlAddressDepartments,spinnerDept, "Name", session.getclinicid());
+        Downloader dept=new Downloader(PatientQueue.this,urlAddressDepartments,spinnerDept, "name", session.getclinicid());
         dept.execute();
         /*Downloader transact=new Downloader(PatientQueue.this,urlAddressTransaction,spinnerTransaction, "Type");
         transact.execute();*/
