@@ -104,11 +104,11 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
             connection.setDoOutput(true);
 
             Uri.Builder builder = new Uri.Builder()
-                    .appendQueryParameter("first", sec.encrypt("login"))
-                    .appendQueryParameter("second", sec.encrypt("patient login"))
+                    .appendQueryParameter("first", sec.encrypt("Login"))
+                    .appendQueryParameter("second", sec.encrypt("Patient login"))
                     .appendQueryParameter("third", sec.encrypt("Patient logging in to the application"))
                     .appendQueryParameter("fourth", sec.encrypt("none"))
-                    .appendQueryParameter("fifth", sec.encrypt("none"))
+                    .appendQueryParameter("fifth", sec.encrypt("Patient ID: " + session.getpatientid()))
                     .appendQueryParameter("sixth", session.getpatientid());
             String query = builder.build().getEncodedQuery();
 

@@ -146,11 +146,11 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
             connection.setDoOutput(true);
 
             Uri.Builder builder = new Uri.Builder()
-                    .appendQueryParameter("first", sec.encrypt("queue"))
-                    .appendQueryParameter("second", sec.encrypt("patient queue"))
+                    .appendQueryParameter("first", sec.encrypt("Queue"))
+                    .appendQueryParameter("second", sec.encrypt("Patient queue"))
                     .appendQueryParameter("third", sec.encrypt("Patient queuing"))
                     .appendQueryParameter("fourth", sec.encrypt("none"))
-                    .appendQueryParameter("fifth", sec.encrypt("New Queue ID: " + session.getqueueid()))
+                    .appendQueryParameter("fifth", sec.encrypt("New Queue ID: " + session.getqueueid() + ", " + "Patient ID: " + session.getpatientid()))
                     .appendQueryParameter("sixth", session.getpatientid());
             String query = builder.build().getEncodedQuery();
 

@@ -130,8 +130,8 @@ public class PatientRegister extends AppCompatActivity {
             connection.setDoOutput(true);
 
             Uri.Builder builder = new Uri.Builder()
-                    .appendQueryParameter("first", sec.encrypt("signup"))
-                    .appendQueryParameter("second", sec.encrypt("patient signup"))
+                    .appendQueryParameter("first", sec.encrypt("Signup"))
+                    .appendQueryParameter("second", sec.encrypt("Patient signup"))
                     .appendQueryParameter("third", sec.encrypt("Patient signing up in to the application"))
                     .appendQueryParameter("fourth", sec.encrypt("none"))
                     .appendQueryParameter("fifth", sec.encrypt("New Patient Record: " + session.getpatientid()))

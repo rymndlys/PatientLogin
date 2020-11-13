@@ -121,11 +121,11 @@ public class PatientEditProfile extends AppCompatActivity {
             connection.setDoOutput(true);
 
             Uri.Builder builder = new Uri.Builder()
-                    .appendQueryParameter("first", sec.encrypt("edit profile"))
-                    .appendQueryParameter("second", sec.encrypt("patient edit profile"))
+                    .appendQueryParameter("first", sec.encrypt("Edit Profile"))
+                    .appendQueryParameter("second", sec.encrypt("Patient Edit profile"))
                     .appendQueryParameter("third", sec.encrypt("Patient editing profile"))
                     .appendQueryParameter("fourth", sec.encrypt("none"))
-                    .appendQueryParameter("fifth", sec.encrypt("New Patient Record: " + session.getpatientid()))
+                    .appendQueryParameter("fifth", sec.encrypt("Patient ID: " + session.getpatientid()))
                     .appendQueryParameter("sixth", session.getpatientid());
             String query = builder.build().getEncodedQuery();
 

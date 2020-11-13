@@ -10,9 +10,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.patientlogin.list.ClinicList;
 import com.example.patientlogin.model.Clinic;
+import com.example.patientlogin.security.Security;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -34,9 +37,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.example.patientlogin.App.CHANNEL_1_ID;
@@ -94,6 +106,52 @@ public class PatientDashboard extends AppCompatActivity {
         notificationManager = NotificationManagerCompat.from(this);*/
 
 
+    }
+
+    //insert to audit logs
+    public void insertAudit(){
+
+        Security sec = new Security();
+
+        try {
+            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
+            URLConnection connection = url.openConnection();
+
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            Uri.Builder builder = new Uri.Builder()
+                    .appendQueryParameter("first", sec.encrypt("Select Clinic"))
+                    .appendQueryParameter("second", sec.encrypt("Selecting clinic"))
+                    .appendQueryParameter("third", sec.encrypt("Patient selecting clinic to queue"))
+                    .appendQueryParameter("fourth", sec.encrypt("none"))
+                    .appendQueryParameter("fifth", sec.encrypt("Patient ID: " + session.getpatientid()))
+                    .appendQueryParameter("sixth", session.getpatientid());
+            String query = builder.build().getEncodedQuery();
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, StandardCharsets.UTF_8));
+            writer.write(query);
+            writer.flush();
+            writer.close();
+            os.close();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String returnString="";
+            ArrayList<String> output=new ArrayList<String>();
+            while ((returnString = in.readLine()) != null)
+            {
+                Log.d("returnString", returnString);
+                output.add(returnString);
+            }
+            in.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void ClickMenu (View view){

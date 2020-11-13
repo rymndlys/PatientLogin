@@ -97,11 +97,11 @@ public class PatientReport extends AppCompatActivity {
             connection.setDoOutput(true);
 
             Uri.Builder builder = new Uri.Builder()
-                    .appendQueryParameter("first", sec.encrypt("reports"))
-                    .appendQueryParameter("second", sec.encrypt("patient reports"))
+                    .appendQueryParameter("first", sec.encrypt("Reports"))
+                    .appendQueryParameter("second", sec.encrypt("Patient reports"))
                     .appendQueryParameter("third", sec.encrypt("Patient submitting a report"))
                     .appendQueryParameter("fourth", sec.encrypt("none"))
-                    .appendQueryParameter("fifth", sec.encrypt("none"))
+                    .appendQueryParameter("fifth", sec.encrypt("Patient ID: " + session.getpatientid()))
                     .appendQueryParameter("sixth", session.getpatientid());
             String query = builder.build().getEncodedQuery();
 
