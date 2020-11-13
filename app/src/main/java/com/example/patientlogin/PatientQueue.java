@@ -31,6 +31,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 
 import com.example.patientlogin.dbutility.DBUtility;
@@ -113,6 +114,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
             public void onClick(View v) {
                 QueueNowMethod queueNow = new QueueNowMethod();
                 queueNow.execute();
+                insertAudit();
             }
         });
 
@@ -127,6 +129,52 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
+    }
+
+    //insert to audit logs
+    public void insertAudit(){
+
+        Security sec = new Security();
+
+        try {
+            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
+            URLConnection connection = url.openConnection();
+
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            Uri.Builder builder = new Uri.Builder()
+                    .appendQueryParameter("first", sec.encrypt("queue"))
+                    .appendQueryParameter("second", sec.encrypt("patient queue"))
+                    .appendQueryParameter("third", sec.encrypt("Patient queuing"))
+                    .appendQueryParameter("fourth", sec.encrypt("none"))
+                    .appendQueryParameter("fifth", sec.encrypt("New Queue ID: " + session.getqueueid()))
+                    .appendQueryParameter("sixth", session.getpatientid());
+            String query = builder.build().getEncodedQuery();
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, StandardCharsets.UTF_8));
+            writer.write(query);
+            writer.flush();
+            writer.close();
+            os.close();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String returnString="";
+            ArrayList<String> output=new ArrayList<String>();
+            while ((returnString = in.readLine()) != null)
+            {
+                Log.d("returnString", returnString);
+                output.add(returnString);
+            }
+            in.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void ClickMenu (View view){
@@ -281,6 +329,131 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                     }
                     in.close();
 
+                }
+                catch (Exception ex)
+                {
+                    isSuccess = false;
+                    z = "Exceptions"+ex;
+                }
+            }
+            return z;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
+            if(isSuccess) {
+                Intent intent=new Intent(PatientQueue.this,PatientSuccess.class);
+                // intent.putExtra("name",usernam);
+                startActivity(intent);
+                Toast.makeText(PatientQueue.this, getDoctorValue, Toast.LENGTH_SHORT).show();
+            }
+            progressDialog.hide();
+        }
+    }
+
+    //=====================
+    private class QueueLaterMethod extends AsyncTask<String,String,String> {
+        String z = "";
+        boolean isSuccess = false;
+
+        String getDoctorValue = (String)spinnerDoc.getSelectedItem().toString();
+        String getDeptValue = (String)spinnerDept.getSelectedItem().toString();
+        /*String getQueueType = (String)spinnerTransaction.getSelectedItem().toString();*/
+        String isPriority = "";
+        Security sec = new Security();
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            if(session.getpatienttype().equals("PWD&Senior")){
+
+                isPriority = "Yes";
+            }else{
+                isPriority = "No";
+            }
+
+
+            if (getDoctorValue == "" && getDeptValue == "")
+                z = "Please enter all fields....";
+
+            else
+            {
+                try {
+                    Connection con = connectionClass.CONN();
+                    if (con == null) {
+                        z = "Please check your internet connection";
+                    } else {
+                        String query=SELECT_QUEUE;
+
+                        PreparedStatement ps = con.prepareStatement(query);
+                        ps.setString(1, getDeptValue);
+                        ps.setString(2, getDoctorValue.trim());
+                        session.setchosendept(getDeptValue);
+                        session.setchosendoc(getDoctorValue.trim());
+
+
+                        ResultSet rs= ps.executeQuery();
+                        boolean once=true;
+                        while (rs.next()&&once) {
+                            once=false;
+                            String qID=rs.getString(1);
+                            session.setqueueid(qID);
+                            String query2=QUEUE_PATIENT;
+
+                            PreparedStatement ps2 = con.prepareStatement(query2);
+                            ps2.setString(1, session.getpatientid());
+                            ps2.setString(2, qID);
+                            ps2.setString(3, session.getpatienttype());
+                            ps2.setString(4, "InLine");
+                            ps2.setString(5, isPriority);
+
+                            ps2.execute();
+
+                            String query3=SELECT_NEW_INSTANCE; //GETS THE INSTANCE ID OF THE NEW INSTANCE CREATED
+                            PreparedStatement ps3 = con.prepareStatement(query3);
+                            ResultSet rs1 = ps3.executeQuery();
+                            while(rs1.next()){
+                                String instanceid=rs1.getString(1);//THIS IS THE INSTANCE ID
+                                //WE NEED TO PUT THIS IN A SESSION SO THAT WE CAN VIEW OUR QUEUENUMBER IN THE OTHER PAGE
+                                session.setinstanceid(instanceid);
+                                String query4=SELECT_COUNT_QUEUELIST;//COUNTS THE NUMBER OF PEOPLE ON THE QUEUE SO WE CAN ASSIGN A QUEUE NUMBER
+                                PreparedStatement ps4=con.prepareStatement(query4);
+                                ps4.setString(1,qID);
+                                ResultSet rs2=ps4.executeQuery();
+                                while(rs2.next()){
+                                    int count=rs2.getInt(1);
+                                    int queuenumber=count+1; //THIS IS THE QUEUE NUMBER
+                                    String query5=INSERT_QUEUE_LIST;
+                                    PreparedStatement ps5=con.prepareStatement(query5);
+                                    ps5.setString(1, qID);
+                                    ps5.setString(2, instanceid);
+                                    ps5.setInt(3, queuenumber);
+                                    ps5.executeQuery(); //WE INSERT DATA IN THE QUEUELIST
+
+                                    String query6=UPDATE_QUEUE_NUMBER;
+                                    PreparedStatement ps6=con.prepareStatement(query6);
+                                    ps6.setInt(1, queuenumber);
+                                    ps6.setString(2, instanceid);
+                                    ps6.executeUpdate(); //UPDATE INSTANCE SO IT HAS QUEUENUMBER
+
+                                }
+
+
+                            }
+                        }
+
+
+                        isSuccess=true;
+                        z = "Queueing successfull";
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -8,10 +8,14 @@ public interface DBUtility {
 //    String dbUserName = "KeruxAdmin";
 //    String dbPassword = "admin";
 
-    String jdbcDriverName = "com.mysql.jdbc.Driver";
+   /* String jdbcDriverName = "com.mysql.jdbc.Driver";
     String jdbcUrl ="jdbc:mysql://192.168.1.6/keruxfinal";
     String dbUserName = "KeruxAdmin";
-    String dbPassword = "admin";
+    String dbPassword = "admin";*/
+    String jdbcDriverName = "com.mysql.jdbc.Driver";//vxcd9lOiVlb9DcyuaKAzLr5qD7AQB+5gr7zwfl1MXhY=
+    String jdbcUrl ="jdbc:mysql://192.168.1.13/kerux";//jdbc:mysql://192.168.1.1/keruxdb
+    String dbUserName = "user";//user//o9gPQILs8mlgWTtuaBMBFA==
+    String dbPassword = "admin";//admin//oCeOPEBYh4uhgDL4d2Q/8g==
 
     //login
     String LOGIN_PATIENT = "select patient_id, contactno, password, email, firstname, lastname from patient where contactno = ? and password = ?";
@@ -24,10 +28,10 @@ public interface DBUtility {
     String CHECK_PATIENT = "select contactno, email from patient where contactno = ? or email = ?";
 
     //queueing
-    String SELECT_QUEUE="select queue.queue_id from queue inner join department " +
-            "on department.department_id = queue.department_id inner join doctor " +
-            "on doctor.doctor_id = queue.doctor_id where department.name = ? and " +
-            "CONCAT(doctor.firstname, ' ', doctor.lastname) = ? and queue.endtime is null";
+    String SELECT_QUEUE="select queue.queue_id from queue " +
+            "inner join department on department.department_id = queue.department_id " +
+            "inner join doctor on doctor.doctor_id = queue.doctor_id " +
+            "where department.name = ? and CONCAT(doctor.firstname, ' ', doctor.lastname) = ? and queue.endtime is null";
 
     //updated queueing
     String QUEUE_PATIENT = "insert into instance (patient_id, queue_id, queuetype, status, priority) " +
