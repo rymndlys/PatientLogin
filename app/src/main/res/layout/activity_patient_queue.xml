@@ -25,46 +25,36 @@
 
         <Button
             android:id="@+id/buttonQueueNow"
-            android:layout_width="360dp"
-            android:layout_height="78dp"
+            android:layout_width="379dp"
+            android:layout_height="74dp"
             android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.447"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.96" />
+
+        <Spinner
+            android:id="@+id/spinnerPrefArea"
+            android:layout_width="418dp"
+            android:layout_height="67dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.275" />
+
+        <Spinner
+            android:id="@+id/spinnerPrefDoc"
+            android:layout_width="420dp"
+            android:layout_height="63dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.427" />
-
-        <Button
-            android:id="@+id/buttonQueueLater"
-            android:layout_width="344dp"
-            android:layout_height="63dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.968" />
-
-        <Spinner
-            android:id="@+id/spinnerPrefArea"
-            android:layout_width="396dp"
-            android:layout_height="66dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.175" />
-
-        <Spinner
-            android:id="@+id/spinnerPrefDoc"
-            android:layout_width="397dp"
-            android:layout_height="61dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.33" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

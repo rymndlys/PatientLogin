@@ -69,6 +69,8 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
 
         PatientQueueNumber pqn = new PatientQueueNumber();
         pqn.execute();
+        pqn.notify();
+        currentlyServing.notify();
     }
 
     public void ClickMenu (View view){
@@ -150,8 +152,8 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
                     URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ViewQueuePatientServlet");
                     URLConnection connection = url.openConnection();
 
-                    connection.setReadTimeout(10000);
-                    connection.setConnectTimeout(15000);
+                    connection.setReadTimeout(300000);
+                    connection.setConnectTimeout(300000);
                     connection.setDoInput(true);
                     connection.setDoOutput(true);
 
