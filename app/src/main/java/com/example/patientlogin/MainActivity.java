@@ -165,8 +165,8 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                     URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/LoginPatientServlet");
                     URLConnection connection = url.openConnection();
 
-                    connection.setReadTimeout(10000);
-                    connection.setConnectTimeout(15000);
+                    connection.setReadTimeout(300000);
+                    connection.setConnectTimeout(300000);
                     connection.setDoInput(true);
                     connection.setDoOutput(true);
 
@@ -352,8 +352,8 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                 URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/RegisterPatientServlet");
                 URLConnection connection = url.openConnection();
 
-                connection.setReadTimeout(10000);
-                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(300000);
+                connection.setConnectTimeout(300000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
 

@@ -31,6 +31,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.example.patientlogin.dbutility.DBUtility.CHECK_PATIENT;
 import static com.example.patientlogin.dbutility.DBUtility.REGISTER_PATIENT;
@@ -88,9 +90,13 @@ public class PatientRegister extends AppCompatActivity {
         button_signUp.setOnClickListener(new View.OnClickListener() {//
             @Override
             public void onClick(View v) {
-                DoRegister doRegister = new DoRegister();
-                doRegister.execute();
-//                insertAudit();
+                if (!validateFName() || !validateLName() || !validateEmail() || !validatePassword()) {
+                    confirmInput();
+                } else {
+                    DoRegister doRegister = new DoRegister();
+                    doRegister.execute();
+                    insertAudit();
+                }
             }
         });
 
@@ -124,8 +130,8 @@ public class PatientRegister extends AppCompatActivity {
             URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
-            connection.setReadTimeout(10000);
-            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(300000);
+            connection.setConnectTimeout(300000);
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
@@ -159,6 +165,99 @@ public class PatientRegister extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    //"(?=.*[0-9])" +         //at least 1 digit
+                    //"(?=.*[a-z])" +         //at least 1 lower case letter
+                    //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*?[A-Z])" +      //any letter
+                    "(?=.*?[a-z])" +    //at least 1 special character
+                    "(?=.*?[0-9])" +           //no white spaces
+                    "(?=.*?[#?!@$%^&*-])"+
+                    ".{8,}"+
+                    "$");
+
+    private boolean validatePassword() {
+        String patientPw = password.getText().toString().trim();
+        if (patientPw.isEmpty()) {
+            password.setError("Field can't be empty");
+            return false;
+        } else if (!PASSWORD_PATTERN.matcher(patientPw).matches()) {
+            password.setError("Password must be 8 characters, with 1 uppercase, 1 digit and 1 special character");
+            return false;
+        } else {
+            password.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateEmail() {
+        String patientEmail = email.getText().toString().trim();
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = patientEmail;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+
+        if (patientEmail.isEmpty()) {
+            email.setError("Field can't be empty");
+            return false;
+        } else if (!matcher.matches()) {
+            email.setError("Please enter a valid email address");
+            return false;
+        } else {
+            email.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateFName() {
+        String firstname = fname.getText().toString().trim();
+
+        if(firstname.isEmpty()){
+            fname.setError("Field can't be empty");
+            return false;
+        } else if (firstname.length() < 3){
+            fname.setError("First Name too short");
+            return false;
+        } else if(firstname.matches("^[0-9]+$")){
+            fname.setError("Last name cannot contain number values");
+            return false;
+        }  else {
+            fname.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateLName() {
+        String lastname = lname.getText().toString().trim();
+
+        if(lastname.isEmpty()){
+            lname.setError("Field can't be empty");
+            return false;
+        } else if (lastname.length() < 2){
+            lname.setError("Last Name too short");
+            return false;
+        }else if(lastname.matches("^[0-9]+$")){
+            lname.setError("Last name cannot contain number values");
+            return false;
+        }  else {
+            lname.setError(null);
+            return true;
+        }
+    }
+
+    public boolean confirmInput() {
+        String input = "Email: " + email.getText().toString();
+        input += "\n";
+        input += "First Name: " + fname.getText().toString();
+        input += "\n";
+        input += "Last Name: " + lname.getText().toString();
+        Toast.makeText(this, input, Toast.LENGTH_SHORT).show();
+        return false;
     }
 
 
@@ -203,8 +302,8 @@ public class PatientRegister extends AppCompatActivity {
                     URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/RegisterPatientServlet");
                     URLConnection connection = url.openConnection();
 
-                    connection.setReadTimeout(10000);
-                    connection.setConnectTimeout(15000);
+                    connection.setReadTimeout(300000);
+                    connection.setConnectTimeout(300000);
                     connection.setDoInput(true);
                     connection.setDoOutput(true);
 

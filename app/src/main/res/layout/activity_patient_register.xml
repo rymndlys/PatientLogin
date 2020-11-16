@@ -19,31 +19,33 @@
 
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="273dp"
-        android:layout_height="48dp"
+        android:layout_width="387dp"
+        android:layout_height="67dp"
         android:background="@android:color/transparent"
         android:clickable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977" />
+        app:layout_constraintVertical_bias="0.962" />
 
     <Button
         android:id="@+id/button_signUp"
-        android:layout_width="275dp"
-        android:layout_height="45dp"
+        android:layout_width="379dp"
+        android:layout_height="67dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.887" />
+        app:layout_constraintVertical_bias="0.879" />
 
     <EditText
         android:id="@+id/editText_patientFName"
-        android:layout_width="203dp"
-        android:layout_height="38dp"
+        android:layout_width="281dp"
+        android:layout_height="54dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
@@ -57,53 +59,53 @@
 
     <EditText
         android:id="@+id/editText_patientLName"
-        android:layout_width="193dp"
-        android:layout_height="42dp"
+        android:layout_width="277dp"
+        android:layout_height="53dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.738"
+        app:layout_constraintHorizontal_bias="0.779"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.376" />
+        app:layout_constraintVertical_bias="0.384" />
 
     <EditText
         android:id="@+id/editText_patientEmail"
-        android:layout_width="237dp"
-        android:layout_height="42dp"
+        android:layout_width="317dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.702"
+        app:layout_constraintHorizontal_bias="0.739"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.475" />
+        app:layout_constraintVertical_bias="0.474" />
 
     <EditText
         android:id="@+id/editText_patientPasswordSet"
-        android:layout_width="198dp"
-        android:layout_height="43dp"
+        android:layout_width="291dp"
+        android:layout_height="56dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.732"
+        app:layout_constraintHorizontal_bias="0.767"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567" />
+        app:layout_constraintVertical_bias="0.568" />
 
     <EditText
         android:id="@+id/editText_patientContactNum"
-        android:layout_width="141dp"
-        android:layout_height="39dp"
+        android:layout_width="216dp"
+        android:layout_height="50dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
@@ -111,20 +113,20 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.788"
+        app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.658" />
 
     <Spinner
         android:id="@+id/patientType"
-        android:layout_width="177dp"
-        android:layout_height="37dp"
+        android:layout_width="264dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintHorizontal_bias="0.789"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.766" />
+        app:layout_constraintVertical_bias="0.754" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
