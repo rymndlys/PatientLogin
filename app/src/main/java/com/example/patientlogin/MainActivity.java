@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
     private Button button_guest;
     private Button button_register;
     private Button button_report;
+    private Security sec;
 
     int attempt_counter = 5;
 
@@ -172,8 +173,8 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                     connection.setDoOutput(true);
 
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("username", usernam)
-                            .appendQueryParameter("password", passstr);
+                            .appendQueryParameter("username", sec.encrypt(usernam))
+                            .appendQueryParameter("password", sec.encrypt(passstr));
                     String query = builder.build().getEncodedQuery();
 
                     OutputStream os = connection.getOutputStream();
