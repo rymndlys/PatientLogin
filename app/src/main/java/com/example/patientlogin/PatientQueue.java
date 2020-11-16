@@ -344,7 +344,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
-                Intent intent=new Intent(PatientQueue.this,PatientSuccess.class);
+                Intent intent=new Intent(PatientQueue.this,PatientViewQueue.class);
                 // intent.putExtra("name",usernam);
                 startActivity(intent);
                 Toast.makeText(PatientQueue.this, getDoctorValue, Toast.LENGTH_SHORT).show();
@@ -490,31 +490,4 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         return sdf.format(calendar.getTime());
     }
 
-
-    //---------------------------------
-    // get selected radio button from radioGroup
-    /*int selectedTransaction = transactionTypes.getCheckedRadioButtonId();
-
-    // find the radiobutton by returned id
-    String transact = ((RadioButton) findViewById(selectedTransaction)).getText().toString();
-
-    //--------------------------------------------------
-
-    // get selected radio button from radioGroup
-    int selectedArea = preferredArea.getCheckedRadioButtonId();
-
-    // find the radiobutton by returned id
-    String area = ((RadioButton) findViewById(selectedArea)).getText().toString();
-
-    //--------------------------------------------------
-
-    // get selected radio button from radioGroup
-    int selectedDoc = preferredDoctor.getCheckedRadioButtonId();
-
-    // find the radiobutton by returned id
-    String doc = ((RadioButton) findViewById(selectedDoc)).getText().toString();
-
-                                Toast.makeText(PatientQueue.this, "Queue Now " + transact + " " + area + " " + doc, Toast.LENGTH_SHORT).show();
-
-*/
 }

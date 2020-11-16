@@ -69,8 +69,8 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
 
         PatientQueueNumber pqn = new PatientQueueNumber();
         pqn.execute();
-        pqn.notify();
-        currentlyServing.notify();
+        //pqn.notify();
+        //currentlyServing.notify();
     }
 
     public void ClickMenu (View view){
@@ -145,10 +145,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
         @Override
         protected String doInBackground(String... params) {
             try {
-                Connection con = connectionClass.CONN();
-                if (con == null) {
-                    z = "Please check your internet connection";
-                } else {
+
                     URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ViewQueuePatientServlet");
                     URLConnection connection = url.openConnection();
 
@@ -192,7 +189,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
 
                     isSuccess=true;
                     z = "Queueing successfull";
-                }
+
             }
             catch (Exception ex)
             {

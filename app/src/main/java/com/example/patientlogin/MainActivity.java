@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         setContentView(R.layout.activity_main);
 
         GuestButton();
+
         RegisterButton();
 
         connectionClass = new ConnectionClass();
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
             public void onClick(View v) {
                 Dologin dologin=new Dologin();
                 dologin.execute();
-//                insertAudit();
+               // insertAudit();
             }
         });
 

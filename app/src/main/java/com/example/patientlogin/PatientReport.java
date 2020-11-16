@@ -204,10 +204,6 @@ public class PatientReport extends AppCompatActivity {
             else
             {
                 try {
-                    Connection con = connectionClass.CONN();
-                    if (con == null) {
-                        z = "Please check your internet connection";
-                    } else {
                         URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ErrorReportPatientServlet");
                         URLConnection connection = url.openConnection();
 
@@ -249,7 +245,7 @@ public class PatientReport extends AppCompatActivity {
                                 isSuccess=true;
                                 z = "Your response has been submitted.";
 
-                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -263,7 +259,7 @@ public class PatientReport extends AppCompatActivity {
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
-                Intent intent=new Intent(PatientReport.this,MainActivity.class);
+                Intent intent=new Intent(PatientReport.this,PatientDashboard.class);
                 // intent.putExtra("name",usernam);
                 startActivity(intent);
             }

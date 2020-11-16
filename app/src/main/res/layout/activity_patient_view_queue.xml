@@ -24,34 +24,19 @@
             app:srcCompat="@drawable/newviewqueue" />
 
         <TextView
-            android:id="@+id/txtPatientNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="placeholder"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.226" />
-
-        <TextView
             android:id="@+id/txtCurrentlyServing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
             android:text="placeholder"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp"
+            android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.551" />
+            app:layout_constraintVertical_bias="0.605" />
 
         <TextView
             android:id="@+id/txtDate"
@@ -63,47 +48,69 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.359" />
+            app:layout_constraintVertical_bias="0.389" />
 
         <TextView
-            android:id="@+id/txtChosenDoctor"
+            android:id="@+id/txtPatientNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_condensed_bold"
+            android:fontFamily="@font/roboto_bold"
             android:text="placeholder"
-            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.871" />
+            app:layout_constraintVertical_bias="0.237" />
 
         <TextView
             android:id="@+id/txtChosenDepartment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="293dp"
+            android:layout_height="34dp"
             android:fontFamily="@font/roboto_condensed_bold"
             android:text="placeholder"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.808" />
+
+        <TextView
+            android:id="@+id/txtChosenDoctor"
+            android:layout_width="301dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/roboto_condensed_bold"
+            android:text="placeholder"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.75" />
+            app:layout_constraintVertical_bias="0.941" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="3dp">
+
+            <include layout="@layout/main_toolbar" />
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include
-            layout="@layout/main_toolbar"/>
-
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="300dp"
