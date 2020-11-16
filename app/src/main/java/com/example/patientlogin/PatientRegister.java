@@ -90,7 +90,7 @@ public class PatientRegister extends AppCompatActivity {
             public void onClick(View v) {
                 DoRegister doRegister = new DoRegister();
                 doRegister.execute();
-                insertAudit();
+//                insertAudit();
             }
         });
 

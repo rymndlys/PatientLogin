@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
             public void onClick(View v) {
                 Dologin dologin=new Dologin();
                 dologin.execute();
-                insertAudit();
+//                insertAudit();
             }
         });
 
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         String z = "";
         boolean isSuccess = false;
 
-        String pID, fName, lName, cn,pass, email;
+        String pID, fName, lName, cn,pass, email, pType;
 
         @Override
         protected void onPreExecute() {
@@ -211,7 +211,9 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                         else if(i==5){
                             lName=output.get(i);
                         }
-
+                        else if(i==6){
+                            pType=output.get(i);
+                        }
                     }
                     in.close();
 
@@ -234,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                 session.setfirstname(fName);
                 session.setlastname(lName);
                 session.setpatientid(pID);
+                session.setpatienttype(pType);
                 Intent intent=new Intent(MainActivity.this,PatientDashboard.class);
                 // intent.putExtra("name",usernam);
                 intent.putExtra("NAME", fName + " " + lName);

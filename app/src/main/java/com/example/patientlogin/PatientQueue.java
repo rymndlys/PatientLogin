@@ -114,13 +114,13 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
             public void onClick(View v) {
                 QueueNowMethod queueNow = new QueueNowMethod();
                 queueNow.execute();
-                insertAudit();
+//                insertAudit();
             }
         });
 
         /*ViewQueueButton();*/
 
-        Downloader doc=new Downloader(PatientQueue.this,urlAddressDoctors,spinnerDoc, "FirstName LastName", session.getclinicid());
+        Downloader doc=new Downloader(PatientQueue.this,urlAddressDoctors,spinnerDoc, "first_name last_name", session.getclinicid());
         doc.execute();
         Downloader dept=new Downloader(PatientQueue.this,urlAddressDepartments,spinnerDept, "name", session.getclinicid());
         dept.execute();
@@ -326,6 +326,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                         String [] words=line.split("\\s\\|\\s");
                         session.setqueueid(words[0]);
                         session.setinstanceid(words[1]);
+                        z=words[0]+"||"+words[1];
                     }
                     in.close();
 

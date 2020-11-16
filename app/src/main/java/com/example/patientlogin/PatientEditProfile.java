@@ -89,7 +89,7 @@ public class PatientEditProfile extends AppCompatActivity {
             public void onClick(View v) {
                 updatePatientInfo updatepinfo=new updatePatientInfo();
                 updatepinfo.execute();
-                insertAudit();
+//                insertAudit();
             }
         });
 
@@ -98,7 +98,7 @@ public class PatientEditProfile extends AppCompatActivity {
             public void onClick(View v) {
                 updatePatientPass updateppass=new updatePatientPass();
                 updateppass.execute();
-                insertAudit();
+//                insertAudit();
             }
         });
 
