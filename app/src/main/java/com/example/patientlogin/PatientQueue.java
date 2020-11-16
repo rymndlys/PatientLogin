@@ -294,9 +294,9 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                     connection.setConnectTimeout(15000);
                     connection.setDoInput(true);
                     connection.setDoOutput(true);
-
+                    Log.d("QUERY", getDeptValue+"&"+getDoctorValue.trim()+"&"+session.getpatientid()+"&"+session.getpatienttype()+"&"+isPriority);
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("getdepval", getDeptValue)
+                            .appendQueryParameter("getdepval", getDeptValue.trim())
                             .appendQueryParameter("getdocval", getDoctorValue.trim())
                             .appendQueryParameter("getpatientid", session.getpatientid())
                             .appendQueryParameter("getpatienttype", session.getpatienttype())
