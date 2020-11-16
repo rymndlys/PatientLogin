@@ -24,20 +24,20 @@
 
         <Button
             android:id="@+id/button_report"
-            android:layout_width="369dp"
-            android:layout_height="73dp"
+            android:layout_width="276dp"
+            android:layout_height="54dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.929" />
+            app:layout_constraintVertical_bias="0.941" />
 
         <EditText
             android:id="@+id/editText_message"
-            android:layout_width="399dp"
-            android:layout_height="328dp"
+            android:layout_width="266dp"
+            android:layout_height="238dp"
             android:background="@android:color/transparent"
             android:ems="10"
             android:inputType="textMultiLine|textPersonName"
@@ -45,10 +45,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.66" />
+            app:layout_constraintVertical_bias="0.68" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout

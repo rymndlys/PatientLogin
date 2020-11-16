@@ -25,35 +25,100 @@
 
         <Button
             android:id="@+id/button_save"
-            android:layout_width="214dp"
-            android:layout_height="58dp"
+            android:layout_width="155dp"
+            android:layout_height="44dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.076"
+            app:layout_constraintHorizontal_bias="0.125"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.975" />
+            app:layout_constraintVertical_bias="0.961" />
 
         <Button
             android:id="@+id/button_confirm"
-            android:layout_width="214dp"
-            android:layout_height="58dp"
+            android:layout_width="144dp"
+            android:layout_height="47dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintHorizontal_bias="0.853"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.975" />
+            app:layout_constraintVertical_bias="0.964" />
 
         <EditText
             android:id="@+id/editFirstName"
-            android:layout_width="266dp"
-            android:layout_height="54dp"
+            android:layout_width="193dp"
+            android:layout_height="43dp"
             android:background="@android:color/transparent"
             android:ems="10"
             android:inputType="textPersonName"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.788"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.279" />
+
+        <EditText
+            android:id="@+id/editEmailText"
+            android:layout_width="248dp"
+            android:layout_height="41dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.717"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.487" />
+
+        <EditText
+            android:id="@+id/editLastName"
+            android:layout_width="191dp"
+            android:layout_height="42dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.79"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.383" />
+
+        <EditText
+            android:id="@+id/editPatientContactNo"
+            android:layout_width="190dp"
+            android:layout_height="43dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.748"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.592" />
+
+        <EditText
+            android:id="@+id/editPatientOldPassword"
+            android:layout_width="178dp"
+            android:layout_height="43dp"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:password="true"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,87 +126,24 @@
             app:layout_constraintHorizontal_bias="0.802"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.285" />
-
-        <EditText
-            android:id="@+id/editEmailText"
-            android:layout_width="327dp"
-            android:layout_height="51dp"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.751"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.491" />
-
-        <EditText
-            android:id="@+id/editLastName"
-            android:layout_width="265dp"
-            android:layout_height="52dp"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.803"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.386" />
-
-        <EditText
-            android:id="@+id/editPatientContactNo"
-            android:layout_width="258dp"
-            android:layout_height="59dp"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.808"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.588" />
-
-        <EditText
-            android:id="@+id/editPatientOldPassword"
-            android:layout_width="242dp"
-            android:layout_height="60dp"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.865"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.771" />
+            app:layout_constraintVertical_bias="0.764" />
 
         <EditText
             android:id="@+id/editPatientPassword"
-            android:layout_width="229dp"
-            android:layout_height="56dp"
+            android:layout_width="161dp"
+            android:layout_height="42dp"
             android:background="@android:color/transparent"
             android:ems="10"
             android:inputType="textPersonName"
+            android:password="true"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.829"
+            app:layout_constraintHorizontal_bias="0.781"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.876" />
+            app:layout_constraintVertical_bias="0.865" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
