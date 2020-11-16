@@ -274,6 +274,8 @@ public class PatientRegister extends AppCompatActivity {
 
         String checkNum, checkEmail;
 
+        Security sec = new Security();
+
 
         @Override
         protected void onPreExecute() {
@@ -308,9 +310,9 @@ public class PatientRegister extends AppCompatActivity {
                     connection.setDoOutput(true);
 
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("pContact", pContact)
-                            .appendQueryParameter("pEmail", pEmail)
-                            .appendQueryParameter("pPass", pPass)
+                            .appendQueryParameter("pContact", sec.encrypt(pContact))
+                            .appendQueryParameter("pEmail", sec.encrypt(pEmail))
+                            .appendQueryParameter("pPass", sec.encrypt(pPass))
                             .appendQueryParameter("pType", pType)
                             .appendQueryParameter("fName", fName)
                             .appendQueryParameter("lName", lName);
