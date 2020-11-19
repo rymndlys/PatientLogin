@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
     }
 
     private class Dologin extends AsyncTask<String,String,String> {
-
+        Security sec = new Security();
         String usernam = username.getText().toString();
         String passstr = password.getText().toString();
         String nameofuser="";
