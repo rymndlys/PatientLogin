@@ -287,7 +287,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                 try {
                     session.setchosendept(getDeptValue);
                     session.setchosendoc(getDoctorValue.trim());
-                    URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/QueuePatientServlet");
+                    URL url = new URL("http://192.168.43.166:8080/RootAdmin/QueuePatientServlet");
                     URLConnection connection = url.openConnection();
 
                     connection.setReadTimeout(10000);

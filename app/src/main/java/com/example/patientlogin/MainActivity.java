@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         Security sec = new Security();
 
         try {
-            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
+            URL url = new URL("http://192.168.43.166:8080/RootAdmin/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(10000);
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
             {
                 try {
                     z="Login failed";
-                    URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/LoginPatientServlet");
+                    URL url = new URL("http://192.168.43.166:8080/RootAdmin/LoginPatientServlet");
                     URLConnection connection = url.openConnection();
 
                     connection.setReadTimeout(300000);
@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                     connection.setDoOutput(true);
 
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("username", sec.encrypt(usernam))
-                            .appendQueryParameter("password", sec.encrypt(passstr));
+                            .appendQueryParameter("username", sec.encrypt(usernam).trim())
+                            .appendQueryParameter("password", sec.encrypt(passstr).trim());
                     String query = builder.build().getEncodedQuery();
 
                     OutputStream os = connection.getOutputStream();
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                         }
                     }
                     in.close();
-
+                    Log.d("DATA", pID+";;"+cn+";;"+pass+";;"+email+";;"+fName+";;"+lName+";;"+pType);
                 }catch (Exception ex)
                 {
                     z="Login failed";
@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         protected String doInBackground(String... params) {
 
             try {
-                URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/RegisterPatientServlet");
+                URL url = new URL("http://192.168.43.166:8080/RootAdmin/RegisterPatientServlet");
                 URLConnection connection = url.openConnection();
 
                 connection.setReadTimeout(300000);

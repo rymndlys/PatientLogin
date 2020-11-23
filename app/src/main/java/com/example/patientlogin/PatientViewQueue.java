@@ -146,7 +146,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
         protected String doInBackground(String... params) {
             try {
 
-                    URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ViewQueuePatientServlet");
+                    URL url = new URL("http://192.168.43.166:8080/RootAdmin/ViewQueuePatientServlet");
                     URLConnection connection = url.openConnection();
 
                     connection.setReadTimeout(300000);

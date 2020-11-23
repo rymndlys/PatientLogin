@@ -127,7 +127,7 @@ public class PatientRegister extends AppCompatActivity {
         Security sec = new Security();
 
         try {
-            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
+            URL url = new URL("http://192.168.43.166:8080/RootAdmin/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(300000);
@@ -301,7 +301,7 @@ public class PatientRegister extends AppCompatActivity {
             else
             {
                 try {
-                    URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/RegisterPatientServlet");
+                    URL url = new URL("http://192.168.43.166:8080/RootAdmin/RegisterPatientServlet");
                     URLConnection connection = url.openConnection();
 
                     connection.setReadTimeout(300000);
@@ -310,9 +310,9 @@ public class PatientRegister extends AppCompatActivity {
                     connection.setDoOutput(true);
 
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("pContact", sec.encrypt(pContact))
-                            .appendQueryParameter("pEmail", sec.encrypt(pEmail))
-                            .appendQueryParameter("pPass", sec.encrypt(pPass))
+                            .appendQueryParameter("pContact", sec.encrypt(pContact).trim())
+                            .appendQueryParameter("pEmail", sec.encrypt(pEmail).trim())
+                            .appendQueryParameter("pPass", sec.encrypt(pPass).trim())
                             .appendQueryParameter("pType", pType)
                             .appendQueryParameter("fName", fName)
                             .appendQueryParameter("lName", lName);
