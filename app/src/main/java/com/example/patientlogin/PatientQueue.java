@@ -53,8 +53,8 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
 
-    private String urlAddressDoctors = "https://isproj2a.benilde.edu.ph/Sympl/doctorSpinnerServlet";
-    private String urlAddressDepartments = "https://isproj2a.benilde.edu.ph/Sympl/departmentSpinnerServlet";
+    private String urlAddressDoctors = "http://192.168.1.22:8080/RootAdmin/doctorSpinnerServlet";
+    private String urlAddressDepartments = "http://192.168.1.22:8080/RootAdmin/departmentSpinnerServlet";
     /*private String urlAddressTransaction = "http://192.168.1.2:80/kerux/doctorType.php";*/
 
     private Spinner spinnerDoc;
@@ -137,7 +137,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         Security sec = new Security();
 
         try {
-            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
+            URL url = new URL("http://192.168.1.22:8080/RootAdmin/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(300000);
@@ -287,7 +287,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
                 try {
                     session.setchosendept(getDeptValue);
                     session.setchosendoc(getDoctorValue.trim());
-                    URL url = new URL("http://192.168.43.166:8080/RootAdmin/QueuePatientServlet");
+                    URL url = new URL("http://192.168.1.22:8080/RootAdmin/QueuePatientServlet");
                     URLConnection connection = url.openConnection();
 
                     connection.setReadTimeout(10000);

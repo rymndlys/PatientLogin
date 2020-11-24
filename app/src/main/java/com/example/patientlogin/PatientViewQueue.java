@@ -146,7 +146,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
         protected String doInBackground(String... params) {
             try {
 
-                    URL url = new URL("http://192.168.43.166:8080/RootAdmin/ViewQueuePatientServlet");
+                    URL url = new URL("http://192.168.1.22:8080/RootAdmin/ViewQueuePatientServlet");
                     URLConnection connection = url.openConnection();
 
                     connection.setReadTimeout(300000);
@@ -155,7 +155,8 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
                     connection.setDoOutput(true);
 
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("instanceid", session.getinstanceid());
+                            .appendQueryParameter("instanceid", session.getinstanceid())
+                            .appendQueryParameter("queueid", session.getqueueid());
                     String query = builder.build().getEncodedQuery();
 
                     OutputStream os = connection.getOutputStream();

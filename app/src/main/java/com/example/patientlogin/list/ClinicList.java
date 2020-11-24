@@ -81,7 +81,7 @@ public class ClinicList extends AsyncTask<Void,Void,String> implements DBUtility
         String z;
         z=null;
         try {
-            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ClinicListPatientServlet");
+            URL url = new URL("http://192.168.1.22:8080/RootAdmin/ClinicListPatientServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(10000);

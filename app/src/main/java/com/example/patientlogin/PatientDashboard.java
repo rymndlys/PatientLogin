@@ -114,7 +114,7 @@ public class PatientDashboard extends AppCompatActivity {
         Security sec = new Security();
 
         try {
-            URL url = new URL("http://192.168.43.166:8080/RootAdmin/InsertAuditAdminServlet");
+            URL url = new URL("http://192.168.1.22:8080/RootAdmin/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(300000);

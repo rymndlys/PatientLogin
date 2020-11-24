@@ -51,6 +51,7 @@ public class PatientEditProfile extends AppCompatActivity {
     private String PatientID;
     private Button saveChanges;
     private Button confirmPass;
+    private Security sec;
 
     ConnectionClass connectionClass;
     private KeruxSession session;//global variable
@@ -64,7 +65,7 @@ public class PatientEditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_patient_edit_profile);
 
         connectionClass = new ConnectionClass();
-
+        sec = new Security();
         session = new KeruxSession(getApplicationContext());
 
         progressDialog = new ProgressDialog(this);
@@ -113,7 +114,7 @@ public class PatientEditProfile extends AppCompatActivity {
         Security sec = new Security();
 
         try {
-            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
+            URL url = new URL("http://192.168.1.22:8080/RootAdmin/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(300000);
@@ -238,7 +239,7 @@ public class PatientEditProfile extends AppCompatActivity {
             {
                 try {
 
-                            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/UpdatePatientProfile");
+                            URL url = new URL("http://192.168.1.22:8080/RootAdmin/UpdatePatientProfile");
                             URLConnection connection = url.openConnection();
 
                             connection.setReadTimeout(300000);
@@ -247,10 +248,10 @@ public class PatientEditProfile extends AppCompatActivity {
                             connection.setDoOutput(true);
 
                             Uri.Builder builder = new Uri.Builder()
-                                    .appendQueryParameter("patientEmai", patientEmai)
+                                    .appendQueryParameter("patientEmai", sec.encrypt(patientEmai).trim())
                                     .appendQueryParameter("patientFirstName", patientFirstName)
                                     .appendQueryParameter("patientLastName", patientLastName)
-                                    .appendQueryParameter("patientContactN", patientContactN)
+                                    .appendQueryParameter("patientContactN", sec.encrypt(patientContactN).trim())
                                     .appendQueryParameter("PatientID", PatientID);
                             String query = builder.build().getEncodedQuery();
 
@@ -341,7 +342,7 @@ public class PatientEditProfile extends AppCompatActivity {
                 try {
 
 
-                            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/UpdatePatientPass");
+                            URL url = new URL("http://192.168.1.22:8080/RootAdmin/UpdatePatientPass");
                             URLConnection connection = url.openConnection();
 
                             connection.setReadTimeout(10000);
@@ -351,8 +352,8 @@ public class PatientEditProfile extends AppCompatActivity {
 
                             Uri.Builder builder = new Uri.Builder()
                                     .appendQueryParameter("patientid", PatientID)
-                                    .appendQueryParameter("oldPassword", patientOldPass)
-                                    .appendQueryParameter("newpass", patientNewPass);
+                                    .appendQueryParameter("oldPassword", sec.encrypt(patientOldPass).trim())
+                                    .appendQueryParameter("newpass", sec.encrypt(patientNewPass).trim());
                             String query = builder.build().getEncodedQuery();
 
                             OutputStream os = connection.getOutputStream();

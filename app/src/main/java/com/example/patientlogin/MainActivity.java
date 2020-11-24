@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         Security sec = new Security();
 
         try {
-            URL url = new URL("http://192.168.43.166:8080/RootAdmin/InsertAuditAdminServlet");
+            URL url = new URL("http://192.168.1.22:8080/RootAdmin/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(10000);
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
             {
                 try {
                     z="Login failed";
-                    URL url = new URL("http://192.168.43.166:8080/RootAdmin/LoginPatientServlet");
+                    URL url = new URL("http://192.168.1.22:8080/RootAdmin/LoginPatientServlet");
                     URLConnection connection = url.openConnection();
 
                     connection.setReadTimeout(300000);
@@ -232,9 +232,14 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
-                session.setcontactno(cn);
-                session.setpassword(pass);
-                session.setemail(email);
+                try {
+                    session.setcontactno(sec.decrypt(cn));
+                    session.setpassword(sec.decrypt(pass));
+                    session.setemail(sec.decrypt(email));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 session.setfirstname(fName);
                 session.setlastname(lName);
                 session.setpatientid(pID);
@@ -351,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         protected String doInBackground(String... params) {
 
             try {
-                URL url = new URL("http://192.168.43.166:8080/RootAdmin/RegisterPatientServlet");
+                URL url = new URL("http://192.168.1.22:8080/RootAdmin/RegisterPatientServlet");
                 URLConnection connection = url.openConnection();
 
                 connection.setReadTimeout(300000);
