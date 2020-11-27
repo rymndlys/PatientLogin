@@ -114,7 +114,7 @@ public class PatientEditProfile extends AppCompatActivity {
         Security sec = new Security();
 
         try {
-            URL url = new URL("http://192.168.1.22:8080/RootAdmin/InsertAuditAdminServlet");
+            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(300000);
@@ -239,7 +239,7 @@ public class PatientEditProfile extends AppCompatActivity {
             {
                 try {
 
-                            URL url = new URL("http://192.168.1.22:8080/RootAdmin/UpdatePatientProfile");
+                            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/UpdatePatientProfile");
                             URLConnection connection = url.openConnection();
 
                             connection.setReadTimeout(300000);
@@ -342,7 +342,7 @@ public class PatientEditProfile extends AppCompatActivity {
                 try {
 
 
-                            URL url = new URL("http://192.168.1.22:8080/RootAdmin/UpdatePatientPass");
+                            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/UpdatePatientPass");
                             URLConnection connection = url.openConnection();
 
                             connection.setReadTimeout(10000);

@@ -88,7 +88,7 @@ public class PatientReport extends AppCompatActivity {
         Security sec = new Security();
 
         try {
-            URL url = new URL("http://192.168.1.22:8080/RootAdmin/InsertAuditAdminServlet");
+            URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/InsertAuditAdminServlet");
             URLConnection connection = url.openConnection();
 
             connection.setReadTimeout(300000);
@@ -204,7 +204,7 @@ public class PatientReport extends AppCompatActivity {
             else
             {
                 try {
-                        URL url = new URL("http://192.168.1.22:8080/RootAdmin/ErrorReportPatientServlet");
+                        URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/ErrorReportPatientServlet");
                         URLConnection connection = url.openConnection();
 
                         connection.setReadTimeout(10000);
@@ -268,7 +268,7 @@ public class PatientReport extends AppCompatActivity {
     }
 
 public void goBack(){
-    Intent intent = new Intent(this, MainActivity.class);
+    Intent intent = new Intent(this, PatientDashboard.class);
     startActivity(intent);
 }
 
