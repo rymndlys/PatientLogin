@@ -1,14 +1,18 @@
 package com.example.patientlogin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.app.ProgressDialog;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -27,9 +31,12 @@ import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static com.example.patientlogin.App.CHANNEL_2_ID;
 
 public class PatientViewQueue extends AppCompatActivity implements DBUtility {
 
@@ -40,6 +47,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
     private TextView currentDepartment;
     private TextView currentDoctor;
 
+    private NotificationManagerCompat notificationManager;
     ConnectionClass connectionClass;
     private KeruxSession session;//global variable
     ProgressDialog progressDialog;
@@ -50,6 +58,8 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_view_queue);
+
+        notificationManager = NotificationManagerCompat.from(this);
 
         connectionClass = new ConnectionClass();
 
@@ -69,8 +79,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
 
         PatientQueueNumber pqn = new PatientQueueNumber();
         pqn.execute();
-        //pqn.notify();
-        //currentlyServing.notify();
+        notif();
     }
 
     public void ClickMenu (View view){
@@ -128,6 +137,44 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy");
         return sdf.format(cal.getTime());
+    }
+
+    public void notificationMaker(){
+
+        String title1 = "Kerux Queue Updates";
+        String message1 = "Calling now";
+
+        Notification notification1 = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_notif)
+                //title of the notification
+                .setContentTitle(title1)
+                //message of the notification
+                .setContentText(message1)
+                //importance level for notification channel
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setGroup("example_group")
+                .build();
+
+        notificationManager.notify(2, notification1);
+    }
+
+    public void notif(){
+        Connection con = connectionClass.CONN();
+        PreparedStatement ps = null;
+        boolean hasRecord = false;
+        String Status = "Called";
+        try {
+            ps = con.prepareStatement("SELECT status FROM instance WHERE status = 'Called' AND patientid = ?");
+
+            ResultSet rs=ps.executeQuery();
+
+            if(rs.next()){
+                hasRecord = true;
+                notificationMaker();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private class PatientQueueNumber extends AsyncTask<String,String,String> {
