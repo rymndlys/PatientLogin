@@ -14,11 +14,11 @@
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="400dp">
     <TextView
         android:id="@+id/txtBody"
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:text= "@string/termsConditions"/>
     </ScrollView>
 </LinearLayout>
