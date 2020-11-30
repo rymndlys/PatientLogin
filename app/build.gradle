@@ -38,6 +38,8 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-vision:15.0.0'
 
+    implementation 'com.nexmo:client:4.+'
+
 
 
 }

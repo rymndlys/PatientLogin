@@ -23,6 +23,10 @@ import android.widget.Toast;
 
 
 import com.example.patientlogin.security.Security;
+import com.nexmo.client.NexmoClient;
+import com.nexmo.client.sms.SmsSubmissionResponse;
+import com.nexmo.client.sms.SmsSubmissionResponseMessage;
+import com.nexmo.client.sms.messages.TextMessage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -377,6 +381,23 @@ public class PatientRegister extends AppCompatActivity {
                         output.add(returnString);
                     }
                     in.close();
+
+                    //sms
+
+                    NexmoClient client = new NexmoClient.Builder()
+                            .apiKey("4ba61fad")
+                            .apiSecret("i7WOVGsry1eM4p2F")
+                            .build();
+
+                    String messageText = "Hello from Vonage SMS API";
+                    TextMessage message = new TextMessage("Vonage APIs", "639178216313", messageText);
+
+                    SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+                    for (SmsSubmissionResponseMessage responseMessage : response.getMessages()) {
+                        System.out.println(responseMessage);
+                    }
+
                 }
                 catch (Exception ex)
                 {
