@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.patientlogin.dbutility.DBUtility;
 import com.example.patientlogin.security.Security;
+import com.google.android.gms.safetynet.SafetyNet;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -88,6 +89,40 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                // insertAudit();
             }
         });
+
+/*
+        SafetyNet.getClient(this).verifyWithRecaptcha(YOUR_API_SITE_KEY)
+                .addOnSuccessListener((Executor) this,
+                        new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
+                            @Override
+                            public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
+                                // Indicates communication with reCAPTCHA service was
+                                // successful.
+                                String userResponseToken = response.getTokenResult();
+                                if (!userResponseToken.isEmpty()) {
+                                    // Validate the user response token using the
+                                    // reCAPTCHA siteverify API.
+                                }
+                            }
+                        })
+                .addOnFailureListener((Executor) this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if (e instanceof ApiException) {
+                            // An error occurred when communicating with the
+                            // reCAPTCHA service. Refer to the status code to
+                            // handle the error appropriately.
+                            ApiException apiException = (ApiException) e;
+                            int statusCode = apiException.getStatusCode();
+                            Log.d(TAG, "Error: " + CommonStatusCodes
+                                    .getStatusCodeString(statusCode));
+                        } else {
+                            // A different, unknown type of error occurred.
+                            Log.d(TAG, "Error: " + e.getMessage());
+                        }
+                    }
+                });
+*/
 
     }
 
@@ -173,8 +208,8 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                     connection.setDoOutput(true);
 
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("username", sec.encrypt(usernam))
-                            .appendQueryParameter("password", sec.encrypt(passstr));
+                            .appendQueryParameter("username", sec.encrypt(usernam).trim())
+                            .appendQueryParameter("password", sec.encrypt(passstr).trim());
                     String query = builder.build().getEncodedQuery();
 
                     OutputStream os = connection.getOutputStream();
@@ -218,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                         }
                     }
                     in.close();
-
+                    Log.d("DATA", pID+";;"+cn+";;"+pass+";;"+email+";;"+fName+";;"+lName+";;"+pType);
                 }catch (Exception ex)
                 {
                     z="Login failed";
@@ -232,9 +267,14 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
-                session.setcontactno(cn);
-                session.setpassword(pass);
-                session.setemail(email);
+                try {
+                    session.setcontactno(sec.decrypt(cn));
+                    session.setpassword(sec.decrypt(pass));
+                    session.setemail(sec.decrypt(email));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 session.setfirstname(fName);
                 session.setlastname(lName);
                 session.setpatientid(pID);

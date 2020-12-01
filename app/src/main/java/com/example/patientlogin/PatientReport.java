@@ -268,7 +268,7 @@ public class PatientReport extends AppCompatActivity {
     }
 
 public void goBack(){
-    Intent intent = new Intent(this, MainActivity.class);
+    Intent intent = new Intent(this, PatientDashboard.class);
     startActivity(intent);
 }
 

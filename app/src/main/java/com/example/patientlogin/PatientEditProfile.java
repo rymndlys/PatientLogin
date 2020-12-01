@@ -51,6 +51,7 @@ public class PatientEditProfile extends AppCompatActivity {
     private String PatientID;
     private Button saveChanges;
     private Button confirmPass;
+    private Security sec;
 
     ConnectionClass connectionClass;
     private KeruxSession session;//global variable
@@ -64,7 +65,7 @@ public class PatientEditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_patient_edit_profile);
 
         connectionClass = new ConnectionClass();
-
+        sec = new Security();
         session = new KeruxSession(getApplicationContext());
 
         progressDialog = new ProgressDialog(this);
@@ -247,10 +248,10 @@ public class PatientEditProfile extends AppCompatActivity {
                             connection.setDoOutput(true);
 
                             Uri.Builder builder = new Uri.Builder()
-                                    .appendQueryParameter("patientEmai", patientEmai)
+                                    .appendQueryParameter("patientEmai", sec.encrypt(patientEmai).trim())
                                     .appendQueryParameter("patientFirstName", patientFirstName)
                                     .appendQueryParameter("patientLastName", patientLastName)
-                                    .appendQueryParameter("patientContactN", patientContactN)
+                                    .appendQueryParameter("patientContactN", sec.encrypt(patientContactN).trim())
                                     .appendQueryParameter("PatientID", PatientID);
                             String query = builder.build().getEncodedQuery();
 
@@ -351,8 +352,8 @@ public class PatientEditProfile extends AppCompatActivity {
 
                             Uri.Builder builder = new Uri.Builder()
                                     .appendQueryParameter("patientid", PatientID)
-                                    .appendQueryParameter("oldPassword", patientOldPass)
-                                    .appendQueryParameter("newpass", patientNewPass);
+                                    .appendQueryParameter("oldPassword", sec.encrypt(patientOldPass).trim())
+                                    .appendQueryParameter("newpass", sec.encrypt(patientNewPass).trim());
                             String query = builder.build().getEncodedQuery();
 
                             OutputStream os = connection.getOutputStream();

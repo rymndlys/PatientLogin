@@ -1,23 +1,32 @@
 package com.example.patientlogin;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.patientlogin.security.Security;
+import com.nexmo.client.NexmoClient;
+import com.nexmo.client.sms.SmsSubmissionResponse;
+import com.nexmo.client.sms.SmsSubmissionResponseMessage;
+import com.nexmo.client.sms.messages.TextMessage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -50,6 +59,9 @@ public class PatientRegister extends AppCompatActivity {
     private Button button_signUp;
     private Button button_login;
 
+    private TextView terms;
+    private TextView termsBody;
+    final Context context = this;
 
     ConnectionClass connectionClass;
     ProgressDialog progressDialog;
@@ -80,6 +92,8 @@ public class PatientRegister extends AppCompatActivity {
         contact = (EditText) findViewById(R.id.editText_patientContactNum);
         type = (Spinner)findViewById(R.id.patientType);
         button_signUp = (Button)findViewById(R.id.button_signUp);
+        terms = findViewById(R.id.txtTerms);
+        termsBody = findViewById(R.id.txtBody);
 
         button_login = (Button)findViewById(R.id.buttonLogin);
 
@@ -93,13 +107,44 @@ public class PatientRegister extends AppCompatActivity {
                 if (!validateFName() || !validateLName() || !validateEmail() || !validatePassword()) {
                     confirmInput();
                 } else {
-                    DoRegister doRegister = new DoRegister();
-                    doRegister.execute();
-                    insertAudit();
+                    // get prompts.xml view
+                    LayoutInflater li = LayoutInflater.from(context);
+                    View promptsView = li.inflate(R.layout.activity_terms_and_conditions, null);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
+
+                    terms = promptsView.findViewById(R.id.txtTerms);
+                    termsBody = promptsView.findViewById(R.id.txtBody);
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("YES",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            DoRegister doRegister = new DoRegister();
+                                            doRegister.execute();
+                                            insertAudit();
+                                        }
+                                    })
+                            .setNegativeButton("NO",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                            Toast.makeText(getBaseContext(),"You must accept Terms of User to register successfully",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
                 }
             }
         });
-
     }
 
     public void BackToLogin(){
@@ -310,9 +355,9 @@ public class PatientRegister extends AppCompatActivity {
                     connection.setDoOutput(true);
 
                     Uri.Builder builder = new Uri.Builder()
-                            .appendQueryParameter("pContact", sec.encrypt(pContact))
-                            .appendQueryParameter("pEmail", sec.encrypt(pEmail))
-                            .appendQueryParameter("pPass", sec.encrypt(pPass))
+                            .appendQueryParameter("pContact", sec.encrypt(pContact).trim())
+                            .appendQueryParameter("pEmail", sec.encrypt(pEmail).trim())
+                            .appendQueryParameter("pPass", sec.encrypt(pPass).trim())
                             .appendQueryParameter("pType", pType)
                             .appendQueryParameter("fName", fName)
                             .appendQueryParameter("lName", lName);
@@ -336,6 +381,23 @@ public class PatientRegister extends AppCompatActivity {
                         output.add(returnString);
                     }
                     in.close();
+
+                    //sms
+
+                    NexmoClient client = new NexmoClient.Builder()
+                            .apiKey("4ba61fad")
+                            .apiSecret("i7WOVGsry1eM4p2F")
+                            .build();
+
+                    String messageText = "Hello from Vonage SMS API";
+                    TextMessage message = new TextMessage("Vonage APIs", "639178216313", messageText);
+
+                    SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+                    for (SmsSubmissionResponseMessage responseMessage : response.getMessages()) {
+                        System.out.println(responseMessage);
+                    }
+
                 }
                 catch (Exception ex)
                 {
