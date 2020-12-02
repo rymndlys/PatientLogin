@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 
 import com.example.patientlogin.security.Security;
+import com.example.patientlogin.security.SecurityWEB;
 import com.nexmo.client.NexmoClient;
 import com.nexmo.client.sms.SmsSubmissionResponse;
 import com.nexmo.client.sms.SmsSubmissionResponseMessage;
@@ -325,7 +326,7 @@ public class PatientRegister extends AppCompatActivity {
         String checkNum, checkEmail;
 
         Security sec = new Security();
-
+        SecurityWEB secw = new SecurityWEB();
 
         @Override
         protected void onPreExecute() {
@@ -361,7 +362,7 @@ public class PatientRegister extends AppCompatActivity {
 
                     Uri.Builder builder = new Uri.Builder()
                             .appendQueryParameter("pContact", sec.encrypt(pContact).trim())
-                            .appendQueryParameter("pEmail", sec.encrypt(pEmail).trim())
+                            .appendQueryParameter("pEmail", secw.encrypt(pEmail).trim())
                             .appendQueryParameter("pPass", sec.encrypt(pPass).trim())
                             .appendQueryParameter("pType", pType)
                             .appendQueryParameter("fName", fName)

@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.example.patientlogin.dbutility.DBUtility;
 import com.example.patientlogin.security.Security;
-import com.google.android.gms.safetynet.SafetyNet;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
