@@ -79,7 +79,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
 
         PatientQueueNumber pqn = new PatientQueueNumber();
         pqn.execute();
-        notif();
+/*        notif();*/
     }
 
     public void ClickMenu (View view){
@@ -139,7 +139,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
         return sdf.format(cal.getTime());
     }
 
-    public void notificationMaker(){
+/*    public void notificationMaker(){
 
         String title1 = "Kerux Queue Updates";
         String message1 = "Calling now";
@@ -175,7 +175,7 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private class PatientQueueNumber extends AsyncTask<String,String,String> {
         String z = "";
