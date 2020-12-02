@@ -35,6 +35,8 @@ import java.util.Calendar;
 import java.util.regex.Pattern;
 
 
+import se.aaro.gustav.passwordstrengthmeter.PasswordStrengthMeter;
+
 import static com.example.patientlogin.dbutility.DBUtility.CONFIRM_PATIENT_PASS;
 import static com.example.patientlogin.dbutility.DBUtility.UPDATE_PROFILE;
 import static com.example.patientlogin.dbutility.DBUtility.UPDATE_PROFILE_PASS;
@@ -105,6 +107,9 @@ public class PatientEditProfile extends AppCompatActivity {
         });
 
         drawerLayout = findViewById(R.id.drawer_layout);
+
+        PasswordStrengthMeter meter = findViewById(R.id.passwordInputMeter);
+        meter.setEditText(patientNewPassword);
 
     }
 

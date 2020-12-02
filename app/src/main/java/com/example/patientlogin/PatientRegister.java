@@ -43,6 +43,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import se.aaro.gustav.passwordstrengthmeter.PasswordStrengthMeter;
+
 import static com.example.patientlogin.dbutility.DBUtility.CHECK_PATIENT;
 import static com.example.patientlogin.dbutility.DBUtility.REGISTER_PATIENT;
 
@@ -145,6 +147,9 @@ public class PatientRegister extends AppCompatActivity {
                 }
             }
         });
+
+        PasswordStrengthMeter meter = findViewById(R.id.passwordInputMeter);
+        meter.setEditText(password);
     }
 
     public void BackToLogin(){

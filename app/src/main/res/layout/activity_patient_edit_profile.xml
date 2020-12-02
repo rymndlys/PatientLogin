@@ -25,32 +25,32 @@
 
         <Button
             android:id="@+id/button_save"
-            android:layout_width="155dp"
-            android:layout_height="44dp"
+            android:layout_width="153dp"
+            android:layout_height="36dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintHorizontal_bias="0.124"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.961" />
+            app:layout_constraintVertical_bias="0.978" />
 
         <Button
             android:id="@+id/button_confirm"
-            android:layout_width="144dp"
-            android:layout_height="47dp"
+            android:layout_width="143dp"
+            android:layout_height="37dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.853"
+            app:layout_constraintHorizontal_bias="0.861"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.964" />
+            app:layout_constraintVertical_bias="0.978" />
 
         <EditText
             android:id="@+id/editFirstName"
-            android:layout_width="193dp"
-            android:layout_height="43dp"
+            android:layout_width="206dp"
+            android:layout_height="44dp"
             android:background="@android:color/transparent"
             android:ems="10"
             android:inputType="textPersonName"
@@ -58,10 +58,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.788"
+            app:layout_constraintHorizontal_bias="0.775"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.279" />
+            app:layout_constraintVertical_bias="0.271" />
 
         <EditText
             android:id="@+id/editEmailText"
@@ -74,14 +74,14 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.717"
+            app:layout_constraintHorizontal_bias="0.687"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.487" />
+            app:layout_constraintVertical_bias="0.478" />
 
         <EditText
             android:id="@+id/editLastName"
-            android:layout_width="191dp"
+            android:layout_width="201dp"
             android:layout_height="42dp"
             android:background="@android:color/transparent"
             android:ems="10"
@@ -90,10 +90,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.79"
+            app:layout_constraintHorizontal_bias="0.757"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.383" />
+            app:layout_constraintVertical_bias="0.377" />
 
         <EditText
             android:id="@+id/editPatientContactNo"
@@ -106,10 +106,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.748"
+            app:layout_constraintHorizontal_bias="0.751"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.592" />
+            app:layout_constraintVertical_bias="0.584" />
 
         <EditText
             android:id="@+id/editPatientOldPassword"
@@ -123,10 +123,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.802"
+            app:layout_constraintHorizontal_bias="0.763"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.764" />
+            app:layout_constraintVertical_bias="0.726" />
 
         <EditText
             android:id="@+id/editPatientPassword"
@@ -140,10 +140,26 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.781"
+            app:layout_constraintHorizontal_bias="0.78"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.865" />
+            app:layout_constraintVertical_bias="0.831" />
+
+        <se.aaro.gustav.passwordstrengthmeter.PasswordStrengthMeter
+            android:id="@+id/passwordInputMeter"
+            android:layout_width="341dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            app:animateChanges="true"
+            app:animationDuration="300"
+            app:labelTextSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.911"
+            app:showStrengthBar="true"
+            app:showStrengthLabel="true"
+            app:strengthBarHeight="10dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
