@@ -32,15 +32,15 @@
 
     <Button
         android:id="@+id/button_signUp"
-        android:layout_width="282dp"
-        android:layout_height="49dp"
+        android:layout_width="284dp"
+        android:layout_height="36dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888" />
+        app:layout_constraintVertical_bias="0.9" />
 
     <EditText
         android:id="@+id/editText_patientFName"
@@ -55,7 +55,7 @@
         app:layout_constraintHorizontal_bias="0.772"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.276" />
+        app:layout_constraintVertical_bias="0.267" />
 
     <EditText
         android:id="@+id/editText_patientLName"
@@ -70,7 +70,7 @@
         app:layout_constraintHorizontal_bias="0.782"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.376" />
+        app:layout_constraintVertical_bias="0.362" />
 
     <EditText
         android:id="@+id/editText_patientEmail"
@@ -85,7 +85,7 @@
         app:layout_constraintHorizontal_bias="0.721"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.469" />
+        app:layout_constraintVertical_bias="0.459" />
 
     <EditText
         android:id="@+id/editText_patientPasswordSet"
@@ -98,15 +98,31 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.767"
+        app:layout_constraintHorizontal_bias="0.768"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.568" />
+        app:layout_constraintVertical_bias="0.554" />
+
+    <se.aaro.gustav.passwordstrengthmeter.PasswordStrengthMeter
+        android:id="@+id/passwordInputMeter"
+        android:layout_width="335dp"
+        android:layout_height="47dp"
+        app:animateChanges="true"
+        app:animationDuration="300"
+        app:labelTextSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.636"
+        app:showStrengthBar="true"
+        app:showStrengthLabel="true"
+        app:strengthBarHeight="10dp" />
 
     <EditText
         android:id="@+id/editText_patientContactNum"
-        android:layout_width="152dp"
-        android:layout_height="45dp"
+        android:layout_width="161dp"
+        android:layout_height="46dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
@@ -114,20 +130,21 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintHorizontal_bias="0.816"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.667" />
+        app:layout_constraintVertical_bias="0.716" />
 
     <Spinner
         android:id="@+id/patientType"
         android:layout_width="186dp"
         android:layout_height="37dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.791"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.762" />
+        app:layout_constraintVertical_bias="0.811" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
