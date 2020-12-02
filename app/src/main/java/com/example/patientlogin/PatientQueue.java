@@ -344,7 +344,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(),""+z,Toast.LENGTH_LONG).show();
             if(isSuccess) {
-                Intent intent=new Intent(PatientQueue.this,PatientViewQueue.class);
+                Intent intent=new Intent(PatientQueue.this,PatientSuccess.class);
                 // intent.putExtra("name",usernam);
                 startActivity(intent);
                 Toast.makeText(PatientQueue.this, getDoctorValue, Toast.LENGTH_SHORT).show();
@@ -354,13 +354,13 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
     }
 
     //=====================
-    private class QueueLaterMethod extends AsyncTask<String,String,String> {
+/*    private class QueueLaterMethod extends AsyncTask<String,String,String> {
         String z = "";
         boolean isSuccess = false;
 
         String getDoctorValue = (String)spinnerDoc.getSelectedItem().toString();
         String getDeptValue = (String)spinnerDept.getSelectedItem().toString();
-        /*String getQueueType = (String)spinnerTransaction.getSelectedItem().toString();*/
+        *//*String getQueueType = (String)spinnerTransaction.getSelectedItem().toString();*//*
         String isPriority = "";
         Security sec = new Security();
 
@@ -476,7 +476,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
             }
             progressDialog.hide();
         }
-    }
+    }*/
 
     public String timeStamp() {
         Calendar calendar = Calendar.getInstance();
