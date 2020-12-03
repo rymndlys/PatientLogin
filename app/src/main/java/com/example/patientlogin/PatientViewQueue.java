@@ -5,7 +5,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
 import android.app.Notification;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -82,10 +84,50 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
 
         if(currentlyServing.getText().equals(queueNumber.getText())){
             Toast.makeText(getBaseContext(),"You can now rate your queue experience.",Toast.LENGTH_LONG).show();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(PatientViewQueue.this);
+            builder.setMessage("Your number is now being called! Please proceed to your doctor. Do you want to rate overall experience?")
+                    .setCancelable(false)
+                    .setPositiveButton("Go to Rating Page", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(PatientViewQueue.this, PatientRating.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("Go back to Dashboard", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            Intent intent = new Intent(PatientViewQueue.this, PatientDashboard.class);
+                            startActivity(intent);
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+            /*notificationMaker();*/
         }
 
 /*        notif();*/
     }
+
+/*    public void notificationMaker(){
+
+        String title1 = "Kerux Queue Updates";
+        String message1 = "Calling now";
+
+        Notification notification1 = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.ic_notif)
+                //title of the notification
+                .setContentTitle(title1)
+                //message of the notification
+                .setContentText(message1)
+                //importance level for notification channel
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setGroup("example_group")
+                .build();
+
+        notificationManager.notify(2, notification1);
+    }*/
 
     public void ClickMenu (View view){
         //open drawer
