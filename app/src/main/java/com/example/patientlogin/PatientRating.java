@@ -15,7 +15,7 @@ public class PatientRating extends AppCompatActivity {
     RatingBar ratingStars;
     Button buttonDashboard;
 
-    float myRating = 0;
+    float myRating = 0; //value of rating to be put in database
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
