@@ -24,10 +24,10 @@ import android.widget.Toast;
 
 import com.example.patientlogin.security.Security;
 import com.example.patientlogin.security.SecurityWEB;
-import com.nexmo.client.NexmoClient;
-import com.nexmo.client.sms.SmsSubmissionResponse;
+/*import com.nexmo.client.NexmoClient;*/
+/*import com.nexmo.client.sms.SmsSubmissionResponse;
 import com.nexmo.client.sms.SmsSubmissionResponseMessage;
-import com.nexmo.client.sms.messages.TextMessage;
+import com.nexmo.client.sms.messages.TextMessage;*/
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -389,7 +389,7 @@ public class PatientRegister extends AppCompatActivity {
                     in.close();
 
                     //sms
-
+/*
                     NexmoClient client = new NexmoClient.Builder()
                             .apiKey("4ba61fad")
                             .apiSecret("i7WOVGsry1eM4p2F")
@@ -402,7 +402,7 @@ public class PatientRegister extends AppCompatActivity {
 
                     for (SmsSubmissionResponseMessage responseMessage : response.getMessages()) {
                         System.out.println(responseMessage);
-                    }
+                    }*/
 
                 }
                 catch (Exception ex)

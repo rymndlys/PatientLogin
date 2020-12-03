@@ -18,6 +18,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
     }
@@ -39,8 +44,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
 
     implementation 'com.google.android.gms:play-services-vision:15.0.0'
-
-    implementation 'com.nexmo:client:4.+'
 
     implementation 'se.aaro.gustav:passwordstrengthmeter:0.+'
 

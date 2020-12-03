@@ -79,6 +79,11 @@ public class PatientViewQueue extends AppCompatActivity implements DBUtility {
 
         PatientQueueNumber pqn = new PatientQueueNumber();
         pqn.execute();
+
+        if(currentlyServing.getText().equals(queueNumber.getText())){
+            Toast.makeText(getBaseContext(),"You can now rate your queue experience.",Toast.LENGTH_LONG).show();
+        }
+
 /*        notif();*/
     }
 
