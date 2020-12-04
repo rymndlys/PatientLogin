@@ -111,6 +111,9 @@ public class PatientRating extends AppCompatActivity {
                     connection.setConnectTimeout(300000);
                     connection.setDoInput(true);
                     connection.setDoOutput(true);
+                    if (session.getinstanceid().isEmpty()){
+                        session.setinstanceid("0");
+                    }
 
                     Uri.Builder builder = new Uri.Builder()
                             .appendQueryParameter("rating", String.valueOf(myRating))
