@@ -80,7 +80,8 @@ public class PatientRating extends AppCompatActivity {
         buttonRate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Toast.makeText(PatientRating.this, String.valueOf(myRating), Toast.LENGTH_SHORT).show();
+                SendRating sendrating =new SendRating();
+                sendrating.execute();
             }
         });
 
@@ -113,6 +114,7 @@ public class PatientRating extends AppCompatActivity {
 
                     Uri.Builder builder = new Uri.Builder()
                             .appendQueryParameter("rating", String.valueOf(myRating))
+                            .appendQueryParameter("instanceid", session.getinstanceid())
                             .appendQueryParameter("patientid", session.getpatientid());
                     String query = builder.build().getEncodedQuery();
 
