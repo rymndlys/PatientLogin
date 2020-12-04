@@ -21,6 +21,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*import com.twilio.Twilio;
+import com.twilio.rest.notify.v1.service.Notification;*/
+
 import com.example.patientlogin.dbutility.DBUtility;
 import com.example.patientlogin.security.Security;
 
@@ -57,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
 
     private KeruxSession session;//global variable
 
+    //twilio
+    // Find your Account Sid and Token at twilio.com/user/account
+/*    public static final String ACCOUNT_SID = "AC72e97aa58b85594605b8bf7cda7251c2";
+    public static final String AUTH_TOKEN = "cee8242b512c35b604eeac31bd2bfa64";
+
+    public static final String SERVICE_SID = "\tIS861e196d322684fae3a343d1cd7bad64";*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +132,17 @@ public class MainActivity extends AppCompatActivity implements DBUtility {
                     }
                 });
 */
+
+        // Initialize the client
+ /*       Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        Notification notification = Notification
+                .creator(SERVICE_SID)
+                .setBody("Knok-Knok! This is your first Notify SMS")
+                .setToBinding("{\"binding_type\":\"sms\",\"address\":\"+639178216313\"}")
+                .create();
+
+        System.out.println(notification.getSid());*/
 
     }
 
