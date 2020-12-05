@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,9 +66,11 @@ public class PatientDashboard extends AppCompatActivity {
 
 
     private Button smsButton;
+    private Button docButton;
 
     DrawerLayout drawerLayout;
 
+    private static final int GALLERY_REQUEST_CODE = 105;
     ConnectionClass connectionClass;
 
     @Override
@@ -82,6 +85,7 @@ public class PatientDashboard extends AppCompatActivity {
         connectionClass = new ConnectionClass();
         ClinicList cl =new ClinicList(PatientDashboard.this, listView);
         cl.execute();
+        docButton=findViewById(R.id.docImage);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,7 +109,14 @@ public class PatientDashboard extends AppCompatActivity {
 
         notificationManager = NotificationManagerCompat.from(this);*/
 
+        docButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallery = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, GALLERY_REQUEST_CODE);
 
+            }
+        });
     }
 
     //insert to audit logs

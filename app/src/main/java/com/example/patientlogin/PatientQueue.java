@@ -15,7 +15,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -68,6 +70,11 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
 
     DrawerLayout drawerLayout;
 
+    ImageView docI;
+    String firstName;
+    String lastName;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +105,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         });*/
         //--------------------------------------------------------------------------------------------------
         session=new KeruxSession(getApplicationContext());
-
+        docI=findViewById(R.id.imgDoc);
         spinnerDoc = (Spinner)findViewById(R.id.spinnerPrefDoc);
         spinnerDept = (Spinner)findViewById(R.id.spinnerPrefArea);
         /*spinnerTransaction = (Spinner)findViewById(R.id.spinnerTransactionMethod);*/
@@ -127,9 +134,116 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
         /*Downloader transact=new Downloader(PatientQueue.this,urlAddressTransaction,spinnerTransaction, "Type");
         transact.execute();*/
 
+
+        spinnerDoc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                spinnerFunc();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+
+        });
+
         drawerLayout = findViewById(R.id.drawer_layout);
 
+
     }
+
+    public void spinnerFunc(){
+        String getDoctorValue = (String) spinnerDoc.getSelectedItem().toString();
+        String[] words = getDoctorValue.split("\\W+");
+        firstName = words[1];
+        lastName = words[2];
+        Log.d("FIRST", firstName+"[[[[[["+lastName);
+        DocPhoto dp = new DocPhoto();
+        dp.execute();
+    }
+
+    private class DocPhoto extends AsyncTask<String,String,String> {
+        String z = "";
+        boolean isSuccess = false;
+        String path_i;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                URL url = new URL("https://isproj2a.benilde.edu.ph/Sympl/GetDocPhoto");
+                URLConnection connection = url.openConnection();
+
+                connection.setReadTimeout(300000);
+                connection.setConnectTimeout(300000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("firstname", firstName)
+                        .appendQueryParameter("lastname", lastName);
+                String query = builder.build().getEncodedQuery();
+
+                OutputStream os = connection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String returnString="";
+                ArrayList<String> output=new ArrayList<String>();
+                while ((returnString = in.readLine()) != null)
+                {
+
+                    output.add(returnString);
+                }
+                for (int i = 0; i < output.size(); i++) {
+                    path_i=output.get(i);
+
+                }
+                in.close();
+                Log.d("PHOTO", path_i);
+
+
+                isSuccess=true;
+                z = "Queueing successfull";
+
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+                z = "Exceptions"+ex;
+            }
+
+            return z;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.d("Message", z);
+            if(isSuccess) {
+                try{
+                    Uri pathh=Uri.parse(path_i);
+                    docI.setImageURI(pathh);
+
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
+
 
     //insert to audit logs
     public void insertAudit(){
