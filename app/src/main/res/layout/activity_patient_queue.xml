@@ -30,10 +30,10 @@
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.447"
+            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.96" />
+            app:layout_constraintVertical_bias="0.969" />
 
         <Spinner
             android:id="@+id/spinnerPrefArea"
@@ -57,14 +57,13 @@
 
         <ImageView
             android:id="@+id/imgDoc"
-            android:layout_width="255dp"
-            android:layout_height="276dp"
+            android:layout_width="210dp"
+            android:layout_height="220dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.713"
+            app:layout_constraintVertical_bias="0.763"
             app:srcCompat="@drawable/ic_baseline_account_box_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
