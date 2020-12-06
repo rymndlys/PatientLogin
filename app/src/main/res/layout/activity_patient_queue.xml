@@ -25,8 +25,8 @@
 
         <Button
             android:id="@+id/buttonQueueNow"
-            android:layout_width="379dp"
-            android:layout_height="74dp"
+            android:layout_width="271dp"
+            android:layout_height="55dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

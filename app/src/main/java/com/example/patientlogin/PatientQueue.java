@@ -6,8 +6,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Messenger;
 import android.util.Log;
 import android.view.View;
 
@@ -28,6 +30,7 @@ import android.view.View.OnClickListener;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -49,6 +52,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Queue;
+
+import static java.security.AccessController.getContext;
 
 public class PatientQueue extends AppCompatActivity implements DBUtility {
 
@@ -154,6 +159,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
 
     }
 
+
     public void spinnerFunc(){
         String getDoctorValue = (String) spinnerDoc.getSelectedItem().toString();
         String[] words = getDoctorValue.split("\\W+");
@@ -234,6 +240,7 @@ public class PatientQueue extends AppCompatActivity implements DBUtility {
             if(isSuccess) {
                 try{
                     Uri pathh=Uri.parse(path_i);
+                    Uri paths=Uri.fromFile(new File(path_i));
                     docI.setImageURI(pathh);
 
                 } catch(Exception e){

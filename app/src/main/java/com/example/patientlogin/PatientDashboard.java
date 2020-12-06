@@ -52,8 +52,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static com.example.patientlogin.App.CHANNEL_1_ID;
-import static com.example.patientlogin.App.CHANNEL_2_ID;
+/*import static com.example.patientlogin.App.CHANNEL_1_ID;
+import static com.example.patientlogin.App.CHANNEL_2_ID;*/
 
 
 public class PatientDashboard extends AppCompatActivity {
